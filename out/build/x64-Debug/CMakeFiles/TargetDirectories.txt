@@ -1,5 +1,5 @@
 C:/Users/Posqg/source/repos/DnDVirtualReality/out/build/x64-Debug/CMakeFiles/edit_cache.dir
 C:/Users/Posqg/source/repos/DnDVirtualReality/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
-C:/Users/Posqg/source/repos/DnDVirtualReality/out/build/x64-Debug/DnDVirtualReality/CMakeFiles/edit_cache.dir
-C:/Users/Posqg/source/repos/DnDVirtualReality/out/build/x64-Debug/DnDVirtualReality/CMakeFiles/DnDVirtualReality.dir
-C:/Users/Posqg/source/repos/DnDVirtualReality/out/build/x64-Debug/DnDVirtualReality/CMakeFiles/rebuild_cache.dir
+C:/Users/Posqg/source/repos/DnDVirtualReality/out/build/x64-Debug/src/CMakeFiles/edit_cache.dir
+C:/Users/Posqg/source/repos/DnDVirtualReality/out/build/x64-Debug/src/CMakeFiles/DnDVirtualReality.dir
+C:/Users/Posqg/source/repos/DnDVirtualReality/out/build/x64-Debug/src/CMakeFiles/rebuild_cache.dir

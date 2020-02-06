@@ -61,12 +61,12 @@ build rebuild_cache: phony CMakeFiles\rebuild_cache.util
 #############################################
 # Utility command for edit_cache
 
-build DnDVirtualReality\CMakeFiles\edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\Posqg\source\repos\DnDVirtualReality\out\build\x64-Debug\DnDVirtualReality && "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+build src\CMakeFiles\edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\Posqg\source\repos\DnDVirtualReality\out\build\x64-Debug\src && "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
-build DnDVirtualReality\edit_cache: phony DnDVirtualReality\CMakeFiles\edit_cache.util
+build src\edit_cache: phony src\CMakeFiles\edit_cache.util
 
 # =============================================================================
 # Object build statements for EXECUTABLE target DnDVirtualReality
@@ -75,23 +75,63 @@ build DnDVirtualReality\edit_cache: phony DnDVirtualReality\CMakeFiles\edit_cach
 #############################################
 # Order-only phony target for DnDVirtualReality
 
-build cmake_object_order_depends_target_DnDVirtualReality: phony || DnDVirtualReality\CMakeFiles\DnDVirtualReality.dir
+build cmake_object_order_depends_target_DnDVirtualReality: phony || src\CMakeFiles\DnDVirtualReality.dir
 
-build DnDVirtualReality\CMakeFiles\DnDVirtualReality.dir\DnDVirtualReality.cpp.obj: CXX_COMPILER__DnDVirtualReality ..\..\..\DnDVirtualReality\DnDVirtualReality.cpp || cmake_object_order_depends_target_DnDVirtualReality
+build src\CMakeFiles\DnDVirtualReality.dir\DnDVirtualReality.cpp.obj: CXX_COMPILER__DnDVirtualReality ..\..\..\src\DnDVirtualReality.cpp || cmake_object_order_depends_target_DnDVirtualReality
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -I..\..\..\include -I..\..\..\deps\include -I..\..\..\§{IL_INCLUDE_DIR}
-  OBJECT_DIR = DnDVirtualReality\CMakeFiles\DnDVirtualReality.dir
-  OBJECT_FILE_DIR = DnDVirtualReality\CMakeFiles\DnDVirtualReality.dir
-  TARGET_COMPILE_PDB = DnDVirtualReality\CMakeFiles\DnDVirtualReality.dir\
-  TARGET_PDB = DnDVirtualReality\DnDVirtualReality.pdb
+  INCLUDES = -I..\..\..\include -I..\..\..\deps\include -I..\..\..\§{IL_INCLUDE_DIR} -I..\..\..\src\glm
+  OBJECT_DIR = src\CMakeFiles\DnDVirtualReality.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\DnDVirtualReality.dir
+  TARGET_COMPILE_PDB = src\CMakeFiles\DnDVirtualReality.dir\
+  TARGET_PDB = src\DnDVirtualReality.pdb
 
-build DnDVirtualReality\CMakeFiles\DnDVirtualReality.dir\Menu.cpp.obj: CXX_COMPILER__DnDVirtualReality ..\..\..\DnDVirtualReality\Menu.cpp || cmake_object_order_depends_target_DnDVirtualReality
+build src\CMakeFiles\DnDVirtualReality.dir\Engine.cpp.obj: CXX_COMPILER__DnDVirtualReality ..\..\..\src\Engine.cpp || cmake_object_order_depends_target_DnDVirtualReality
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -I..\..\..\include -I..\..\..\deps\include -I..\..\..\§{IL_INCLUDE_DIR}
-  OBJECT_DIR = DnDVirtualReality\CMakeFiles\DnDVirtualReality.dir
-  OBJECT_FILE_DIR = DnDVirtualReality\CMakeFiles\DnDVirtualReality.dir
-  TARGET_COMPILE_PDB = DnDVirtualReality\CMakeFiles\DnDVirtualReality.dir\
-  TARGET_PDB = DnDVirtualReality\DnDVirtualReality.pdb
+  INCLUDES = -I..\..\..\include -I..\..\..\deps\include -I..\..\..\§{IL_INCLUDE_DIR} -I..\..\..\src\glm
+  OBJECT_DIR = src\CMakeFiles\DnDVirtualReality.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\DnDVirtualReality.dir
+  TARGET_COMPILE_PDB = src\CMakeFiles\DnDVirtualReality.dir\
+  TARGET_PDB = src\DnDVirtualReality.pdb
+
+build src\CMakeFiles\DnDVirtualReality.dir\Scene.cpp.obj: CXX_COMPILER__DnDVirtualReality ..\..\..\src\Scene.cpp || cmake_object_order_depends_target_DnDVirtualReality
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  INCLUDES = -I..\..\..\include -I..\..\..\deps\include -I..\..\..\§{IL_INCLUDE_DIR} -I..\..\..\src\glm
+  OBJECT_DIR = src\CMakeFiles\DnDVirtualReality.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\DnDVirtualReality.dir
+  TARGET_COMPILE_PDB = src\CMakeFiles\DnDVirtualReality.dir\
+  TARGET_PDB = src\DnDVirtualReality.pdb
+
+build src\CMakeFiles\DnDVirtualReality.dir\Model\Model.cpp.obj: CXX_COMPILER__DnDVirtualReality ..\..\..\src\Model\Model.cpp || cmake_object_order_depends_target_DnDVirtualReality
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  INCLUDES = -I..\..\..\include -I..\..\..\deps\include -I..\..\..\§{IL_INCLUDE_DIR} -I..\..\..\src\glm
+  OBJECT_DIR = src\CMakeFiles\DnDVirtualReality.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\DnDVirtualReality.dir\Model
+  TARGET_COMPILE_PDB = src\CMakeFiles\DnDVirtualReality.dir\
+  TARGET_PDB = src\DnDVirtualReality.pdb
+
+build src\CMakeFiles\DnDVirtualReality.dir\Light.cpp.obj: CXX_COMPILER__DnDVirtualReality ..\..\..\src\Light.cpp || cmake_object_order_depends_target_DnDVirtualReality
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  INCLUDES = -I..\..\..\include -I..\..\..\deps\include -I..\..\..\§{IL_INCLUDE_DIR} -I..\..\..\src\glm
+  OBJECT_DIR = src\CMakeFiles\DnDVirtualReality.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\DnDVirtualReality.dir
+  TARGET_COMPILE_PDB = src\CMakeFiles\DnDVirtualReality.dir\
+  TARGET_PDB = src\DnDVirtualReality.pdb
+
+build src\CMakeFiles\DnDVirtualReality.dir\Texture\Texture.cpp.obj: CXX_COMPILER__DnDVirtualReality ..\..\..\src\Texture\Texture.cpp || cmake_object_order_depends_target_DnDVirtualReality
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  INCLUDES = -I..\..\..\include -I..\..\..\deps\include -I..\..\..\§{IL_INCLUDE_DIR} -I..\..\..\src\glm
+  OBJECT_DIR = src\CMakeFiles\DnDVirtualReality.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\DnDVirtualReality.dir\Texture
+  TARGET_COMPILE_PDB = src\CMakeFiles\DnDVirtualReality.dir\
+  TARGET_PDB = src\DnDVirtualReality.pdb
+
+build src\CMakeFiles\DnDVirtualReality.dir\Camera.cpp.obj: CXX_COMPILER__DnDVirtualReality ..\..\..\src\Camera.cpp || cmake_object_order_depends_target_DnDVirtualReality
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  INCLUDES = -I..\..\..\include -I..\..\..\deps\include -I..\..\..\§{IL_INCLUDE_DIR} -I..\..\..\src\glm
+  OBJECT_DIR = src\CMakeFiles\DnDVirtualReality.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\DnDVirtualReality.dir
+  TARGET_COMPILE_PDB = src\CMakeFiles\DnDVirtualReality.dir\
+  TARGET_PDB = src\DnDVirtualReality.pdb
 
 
 # =============================================================================
@@ -99,38 +139,38 @@ build DnDVirtualReality\CMakeFiles\DnDVirtualReality.dir\Menu.cpp.obj: CXX_COMPI
 
 
 #############################################
-# Link the executable DnDVirtualReality\DnDVirtualReality.exe
+# Link the executable src\DnDVirtualReality.exe
 
-build DnDVirtualReality\DnDVirtualReality.exe: CXX_EXECUTABLE_LINKER__DnDVirtualReality DnDVirtualReality\CMakeFiles\DnDVirtualReality.dir\DnDVirtualReality.cpp.obj DnDVirtualReality\CMakeFiles\DnDVirtualReality.dir\Menu.cpp.obj | ..\..\..\deps\lib\glew32.lib ..\..\..\deps\lib\freeglut.lib ..\..\..\deps\lib\DevIL.lib
+build src\DnDVirtualReality.exe: CXX_EXECUTABLE_LINKER__DnDVirtualReality src\CMakeFiles\DnDVirtualReality.dir\DnDVirtualReality.cpp.obj src\CMakeFiles\DnDVirtualReality.dir\Engine.cpp.obj src\CMakeFiles\DnDVirtualReality.dir\Scene.cpp.obj src\CMakeFiles\DnDVirtualReality.dir\Model\Model.cpp.obj src\CMakeFiles\DnDVirtualReality.dir\Light.cpp.obj src\CMakeFiles\DnDVirtualReality.dir\Texture\Texture.cpp.obj src\CMakeFiles\DnDVirtualReality.dir\Camera.cpp.obj | ..\..\..\deps\lib\glew32.lib ..\..\..\deps\lib\freeglut.lib ..\..\..\deps\lib\DevIL.lib
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = ..\..\..\deps\lib\glew32.lib ..\..\..\deps\lib\freeglut.lib ..\..\..\deps\lib\DevIL.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
-  OBJECT_DIR = DnDVirtualReality\CMakeFiles\DnDVirtualReality.dir
+  OBJECT_DIR = src\CMakeFiles\DnDVirtualReality.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = DnDVirtualReality\CMakeFiles\DnDVirtualReality.dir\
-  TARGET_FILE = DnDVirtualReality\DnDVirtualReality.exe
-  TARGET_IMPLIB = DnDVirtualReality\DnDVirtualReality.lib
-  TARGET_PDB = DnDVirtualReality\DnDVirtualReality.pdb
+  TARGET_COMPILE_PDB = src\CMakeFiles\DnDVirtualReality.dir\
+  TARGET_FILE = src\DnDVirtualReality.exe
+  TARGET_IMPLIB = src\DnDVirtualReality.lib
+  TARGET_PDB = src\DnDVirtualReality.pdb
 
 
 #############################################
 # Utility command for rebuild_cache
 
-build DnDVirtualReality\CMakeFiles\rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\Posqg\source\repos\DnDVirtualReality\out\build\x64-Debug\DnDVirtualReality && "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:\Users\Posqg\source\repos\DnDVirtualReality -BC:\Users\Posqg\source\repos\DnDVirtualReality\out\build\x64-Debug"
+build src\CMakeFiles\rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\Posqg\source\repos\DnDVirtualReality\out\build\x64-Debug\src && "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:\Users\Posqg\source\repos\DnDVirtualReality -BC:\Users\Posqg\source\repos\DnDVirtualReality\out\build\x64-Debug"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
 
-build DnDVirtualReality\rebuild_cache: phony DnDVirtualReality\CMakeFiles\rebuild_cache.util
+build src\rebuild_cache: phony src\CMakeFiles\rebuild_cache.util
 
 # =============================================================================
 # Target aliases.
 
-build DnDVirtualReality: phony DnDVirtualReality\DnDVirtualReality.exe
+build DnDVirtualReality: phony src\DnDVirtualReality.exe
 
-build DnDVirtualReality.exe: phony DnDVirtualReality\DnDVirtualReality.exe
+build DnDVirtualReality.exe: phony src\DnDVirtualReality.exe
 
 # =============================================================================
 # Folder targets.
@@ -138,9 +178,9 @@ build DnDVirtualReality.exe: phony DnDVirtualReality\DnDVirtualReality.exe
 # =============================================================================
 
 #############################################
-# Folder: C:/Users/Posqg/source/repos/DnDVirtualReality/out/build/x64-Debug/DnDVirtualReality
+# Folder: C:/Users/Posqg/source/repos/DnDVirtualReality/out/build/x64-Debug/src
 
-build DnDVirtualReality\all: phony DnDVirtualReality
+build src\all: phony DnDVirtualReality
 
 # =============================================================================
 # Built-in targets
@@ -149,7 +189,7 @@ build DnDVirtualReality\all: phony DnDVirtualReality
 #############################################
 # The main all target.
 
-build all: phony DnDVirtualReality\DnDVirtualReality.exe
+build all: phony src\DnDVirtualReality.exe
 
 
 #############################################
@@ -160,14 +200,14 @@ default all
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ..\..\..\CMakeLists.txt ..\..\..\DnDVirtualReality\CMakeLists.txt C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCXXInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCommonLanguageInclude.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeGenericSystem.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeLanguageInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeRCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindDevIL.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindGLEW.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindGLUT.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindOpenGL.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindPackageHandleStandardArgs.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindPackageMessage.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\WindowsPaths.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\SelectLibraryConfigurations.cmake CMakeCache.txt CMakeFiles\3.15.19101501-MSVC_2\CMakeCCompiler.cmake CMakeFiles\3.15.19101501-MSVC_2\CMakeCXXCompiler.cmake CMakeFiles\3.15.19101501-MSVC_2\CMakeRCCompiler.cmake CMakeFiles\3.15.19101501-MSVC_2\CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | ..\..\..\CMakeLists.txt ..\..\..\src\CMakeLists.txt C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCXXInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCommonLanguageInclude.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeGenericSystem.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeLanguageInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeRCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindDevIL.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindGLEW.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindGLUT.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindOpenGL.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindPackageHandleStandardArgs.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindPackageMessage.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\WindowsPaths.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\SelectLibraryConfigurations.cmake CMakeCache.txt CMakeFiles\3.15.19101501-MSVC_2\CMakeCCompiler.cmake CMakeFiles\3.15.19101501-MSVC_2\CMakeCXXCompiler.cmake CMakeFiles\3.15.19101501-MSVC_2\CMakeRCCompiler.cmake CMakeFiles\3.15.19101501-MSVC_2\CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ..\..\..\CMakeLists.txt ..\..\..\DnDVirtualReality\CMakeLists.txt C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCXXInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCommonLanguageInclude.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeGenericSystem.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeLanguageInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeRCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindDevIL.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindGLEW.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindGLUT.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindOpenGL.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindPackageHandleStandardArgs.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindPackageMessage.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\WindowsPaths.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\SelectLibraryConfigurations.cmake CMakeCache.txt CMakeFiles\3.15.19101501-MSVC_2\CMakeCCompiler.cmake CMakeFiles\3.15.19101501-MSVC_2\CMakeCXXCompiler.cmake CMakeFiles\3.15.19101501-MSVC_2\CMakeRCCompiler.cmake CMakeFiles\3.15.19101501-MSVC_2\CMakeSystem.cmake: phony
+build ..\..\..\CMakeLists.txt ..\..\..\src\CMakeLists.txt C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCXXInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeCommonLanguageInclude.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeGenericSystem.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeLanguageInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeRCInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Compiler\MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindDevIL.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindGLEW.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindGLUT.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindOpenGL.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindPackageHandleStandardArgs.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\FindPackageMessage.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC-C.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC-CXX.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows-MSVC.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\Windows.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\Platform\WindowsPaths.cmake C$:\Program$ Files$ (x86)\Microsoft$ Visual$ Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.15\Modules\SelectLibraryConfigurations.cmake CMakeCache.txt CMakeFiles\3.15.19101501-MSVC_2\CMakeCCompiler.cmake CMakeFiles\3.15.19101501-MSVC_2\CMakeCXXCompiler.cmake CMakeFiles\3.15.19101501-MSVC_2\CMakeRCCompiler.cmake CMakeFiles\3.15.19101501-MSVC_2\CMakeSystem.cmake: phony
 
 
 #############################################

@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/Posqg/source/repos/DnDVirtualReality/out/build/x64-Debug/DnDVirtualReality/cmake_install.cmake")
+  include("C:/Users/Posqg/source/repos/DnDVirtualReality/out/build/x64-Debug/src/cmake_install.cmake")
 
 endif()
 

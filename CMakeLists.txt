@@ -38,6 +38,6 @@ if(NOT DevIL_FOUND)
 endif(NOT DevIL_FOUND)
 
 # Include sub-projects.
-add_subdirectory ("DnDVirtualReality")
+add_subdirectory ("src")
 
 
