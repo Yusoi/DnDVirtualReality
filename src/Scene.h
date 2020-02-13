@@ -11,9 +11,15 @@ using namespace std;
 class Scene {
 private:
 	vector<Model*> models;
-	vector<Light*> lights;
+	vector<PresetLight*> presetLights;
+	vector<CustomLight*> customLights;
 	vector<Texture*> textures;
 public:
 	Scene();
+	Scene(vector<Model*> models, vector<PresetLight*> presetLights, vector<CustomLight*> customLights, vector<Texture*> textures);
+	void addModel(Model* model);
+	void addPresetLight(PresetLight* presetLight);
+	void addCustomLight(CustomLight* customLight);
+	void addTexture(Texture* texture);
 	void renderScene();
 };

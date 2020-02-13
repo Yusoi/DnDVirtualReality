@@ -6,13 +6,15 @@
 #include "GL/freeglut.h"
 #include "glm/glm.hpp"
 
+using namespace glm;
+
 class Camera {
 private:
-	glm::vec3 cameraPos;
-	glm::vec3 cameraTarget;
-	glm::vec3 up;
+	vec3 cameraPos;
+	vec3 cameraTarget;
+	vec3 up;
 public:
 	Camera();
-	Camera(glm::vec3 eye, glm::vec3 target, glm::vec3 up);
+	Camera(vec3 eye, vec3 target, vec3 up);
 	void setCamera();
 };

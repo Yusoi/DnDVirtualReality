@@ -30,3 +30,16 @@
 937	1151	602629194	src/DnDVirtualReality.exe	d3221a617cea6b6f
 2	855	602629901	src/CMakeFiles/DnDVirtualReality.dir/Camera.cpp.obj	afcf548ae0e75573
 855	1068	602629902	src/DnDVirtualReality.exe	d3221a617cea6b6f
+17	982	603138881	src/CMakeFiles/DnDVirtualReality.dir/Camera.cpp.obj	afcf548ae0e75573
+14	1063	603138881	src/CMakeFiles/DnDVirtualReality.dir/Light.cpp.obj	411cc1c7dcb3cd4c
+2	1127	603138882	src/CMakeFiles/DnDVirtualReality.dir/Scene.cpp.obj	b690f60b9f992187
+7	1214	603138882	src/CMakeFiles/DnDVirtualReality.dir/DnDVirtualReality.cpp.obj	a3bcef8f9dbb6f87
+11	1295	603161417	src/CMakeFiles/DnDVirtualReality.dir/Scene.cpp.obj	b690f60b9f992187
+7	1324	603161417	src/CMakeFiles/DnDVirtualReality.dir/DnDVirtualReality.cpp.obj	a3bcef8f9dbb6f87
+2	797	603161444	src/CMakeFiles/DnDVirtualReality.dir/Engine.cpp.obj	793a2e347125cce6
+797	1140	603161444	src/DnDVirtualReality.exe	d3221a617cea6b6f
+16	1034	603312735	src/CMakeFiles/DnDVirtualReality.dir/Camera.cpp.obj	afcf548ae0e75573
+7	1159	603312735	src/CMakeFiles/DnDVirtualReality.dir/Engine.cpp.obj	793a2e347125cce6
+2	1219	603312735	src/CMakeFiles/DnDVirtualReality.dir/Scene.cpp.obj	b690f60b9f992187
+12	1330	603312735	src/CMakeFiles/DnDVirtualReality.dir/DnDVirtualReality.cpp.obj	a3bcef8f9dbb6f87
+1330	1698	603312735	src/DnDVirtualReality.exe	d3221a617cea6b6f

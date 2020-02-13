@@ -15,13 +15,15 @@ using namespace std;
 class Engine {
 	private:
 		static Engine *engine;
-		vector<Scene> scenes;
+		Scene* scene;
 
 		Engine();
-		void renderScene(void);
-		static void renderSceneWrapper(void);
 	public:
 		static Engine* getInstance();
 		void run(int argc, char* argv[]);
+		void renderScene();
+		static void renderSceneWrapper();
+		void processNormalKeys(unsigned char key, int x, int y);
+		void processSpecialKeys(int key, int x, int y);
 };
 

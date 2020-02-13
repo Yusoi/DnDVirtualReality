@@ -1,7 +1,7 @@
 #include "Engine.h"
 
 Engine::Engine() {
-
+	scene = new Scene;
 }
 
 
@@ -13,21 +13,20 @@ Engine* Engine::getInstance() {
 }
 
 void Engine::renderScene(void) {
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	glBegin(GL_TRIANGLES);
-	glVertex3d(-0.5, -0.5, 0.0);
-	glVertex3d(0.5, 0.0, 0.0);
-	glVertex3d(0.0, 0.5, 0.0);
-	glEnd();
-
-	glutSwapBuffers();
+	scene->renderScene();
 }
 
 void Engine::renderSceneWrapper(void) {
 	Engine* e = Engine::getInstance();
 	e->renderScene();
+}
+
+void Engine::processNormalKeys(unsigned char key, int x, int y) {
+
+}
+
+void Engine::processSpecialKeys(int key, int x, int y) {
+
 }
 
 void Engine::run(int argc, char *argv[]) {
@@ -45,6 +44,8 @@ void Engine::run(int argc, char *argv[]) {
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 	}
 
+	//TODO read the generated file and upload it to the scene.
+
 	//Register callbacks
 	glutDisplayFunc(renderSceneWrapper);
 	glutIdleFunc(renderSceneWrapper);
@@ -55,3 +56,4 @@ void Engine::run(int argc, char *argv[]) {
 	//enter GLUT event processing
 	glutMainLoop();
 }
+
