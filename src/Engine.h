@@ -15,7 +15,7 @@ using namespace std;
 class Engine {
 	private:
 		static Engine *engine;
-		Scene* scene;
+		Scene *scene;
 
 		Engine();
 	public:

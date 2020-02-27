@@ -6,10 +6,10 @@
 #include "GL/freeglut.h"
 #include "../glm/glm.hpp"
 
-class Model {
-	private:
+class Actor {
+private:
 
-	public:
-		Model();
-		void draw();
+public:
+	Actor();
+	void draw();
 };

@@ -1,14 +1,15 @@
 #include "Scene.h"
 
 Scene::Scene() {
-
+	//Import all default stuff
+	Model* barrel = new Model("Object", "D:/Desktop/Universidade/Visualização e Iluminação I/Aula 9/metal_barrel/metal_barrel.obj");
+	models.push_back(barrel);
 }
 
-Scene::Scene(vector<Model*> models, vector<PresetLight*> presetLights, vector<CustomLight*> customLights, vector<Texture*> textures) {
+Scene::Scene(vector<Model*> models, vector<PresetLight*> presetLights, vector<CustomLight*> customLights) {
 	this->models = models;
 	this->presetLights = presetLights;
 	this->customLights = customLights;
-	this->textures = textures;
 }
 
 void Scene::addModel(Model* model) {
@@ -23,19 +24,18 @@ void Scene::addCustomLight(CustomLight* customLight) {
 	this->customLights.push_back(customLight);
 }
 
-void Scene::addTexture(Texture* texture) {
-	this->textures.push_back(texture);
-}
-
 void Scene::renderScene(void) {
-
+	
+	glClearColor(0.1f,0.3f,0.5f,0.3f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glBegin(GL_TRIANGLES);
-	glVertex3d(-0.5, -0.5, 0.0);
-	glVertex3d(0.5, 0.0, 0.0);
-	glVertex3d(0.0, 0.5, 0.0);
-	glEnd();
+
+	cout << "Models size: " << models.size() << "\n";
+
+	for(vector<Model*>::iterator it = models.begin(); it < models.end(); ++it) {
+		cout << "In" << "\n";
+		(*it)->draw();
+	}
 
 	glutSwapBuffers();
 }

@@ -1,7 +1,7 @@
 #include "Engine.h"
 
 Engine::Engine() {
-	scene = new Scene;
+	scene = new Scene();
 }
 
 

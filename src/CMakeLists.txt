@@ -9,10 +9,12 @@ include_directories("glm/")
 add_executable(DnDVirtualReality "DnDVirtualReality.cpp" "DnDVirtualReality.h" 
 		                         "Engine.cpp" "Engine.h"
 								 "Scene.cpp" "Scene.h"
-								 "Model/Model.cpp" "Model/Model.h"
+								 "Model.cpp" "Model.h"
 								 "Light.cpp" "Light.h"
-								 "Texture/Texture.cpp" "Texture/Texture.h"
+								 "Texture.cpp" "Texture.h"
 								 "Camera.cpp" "Camera.h"
+								 "Actor.cpp" "Actor.h"
+								 "Face.cpp" "Face.h"
 								 )
 
 

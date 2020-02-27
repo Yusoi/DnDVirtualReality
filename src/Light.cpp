@@ -4,6 +4,7 @@ PresetLight::PresetLight() {
 	l_pos = vec4(0.0, 0.0, 0.0, 0.0);
 	l_dir = vec4(0.0, 0.0, 0.0, 0.0);
 	l_color = vec4(0.0, 0.0, 0.0, 0.0);
+	preset = "";
 }
 
 PresetLight::PresetLight(vec4 l_pos, vec4 l_dir, vec4 l_color, char* preset) {
