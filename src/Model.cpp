@@ -20,6 +20,8 @@ Model::Model(char *name, char *path) {
 	this->name = name;
 	this->path = path;
 
+	cout << path << "\n";
+
 	ifstream input_file;
 	string line;
 
@@ -34,19 +36,19 @@ Model::Model(char *name, char *path) {
 			//Vertex v x y z
 			regex_search(line, match, v);
 			if (!match.empty()) {
-				vertices.push_back(vec3(stod(match[1]), stod(match[2]), stod(match[3])));
+				vertices.push_back(vec3(stof(match[1]), stof(match[2]), stof(match[3])));
 			}
 
 			//Vertex Normals vn x y z
 			regex_search(line, match, vn);
 			if (!match.empty()) {
-				normals.push_back(vec3(stod(match[1]), stod(match[2]), stod(match[3])));
+				normals.push_back(vec3(stof(match[1]), stof(match[2]), stof(match[3])));
 			}
 
 			//Texture coordinates vt u v [w]
 			regex_search(line, match, vt);
 			if (!match.empty()) {
-				textureCoords.push_back(vec2(stod(match[1]), stod(match[2])));
+				textureCoords.push_back(vec2(stof(match[1]), stof(match[2])));
 			}
 
 			//Face format f v1 v2 v3 ...
@@ -118,7 +120,17 @@ Model::Model(char *name, char *path) {
 
 void Model::draw() {
 	//cout << "Vertices size: " << vertices.size() << "\n";
-	//cout << "Faces size: " << faces.size() << "\n";
+	//cout << "Faces size: " << faces.size() << "\n";~~
+	
+	/*
+	glPushMatrix();
+	glScaled(3.0f, 3.0f, 3.0f);
+	glColor3d(0.5, 0.3, 0.2);
+	glutSolidSphere(0.1f, 10, 10);
+	glPopMatrix();
+	*/
+	
+	
 	for (vector<Face*>::iterator it = faces.begin(); it < faces.end(); ++it) {
 		Face *face = (*it);
 		switch (face->size()) {
@@ -128,6 +140,8 @@ void Model::draw() {
 		case 4:
 			glBegin(GL_QUADS);
 			break;
+		default:
+			cout << "No\n";
 		}
 
 		vector<int>* vertex_indexes = face->get_vertex_index();
@@ -136,13 +150,13 @@ void Model::draw() {
 			int vertex_index = (*vertex_it);
 
 			vec3 vertex = vertices.at(vertex_index-1);
-			cout << "Vertex Index: " << vertex_index << " Vertex: " << vertex.x << " " << vertex.y << " " << vertex.z << "\n";
-			glVertex3d(vertex.x,vertex.y,vertex.z);
+			glVertex3f(vertex.x,vertex.y,vertex.z);
 
 		}
 
 		glEnd();
 	}
+	
 	
 }
 

@@ -8,7 +8,6 @@ include_directories("glm/")
 # Add source to this project's executable.
 add_executable(DnDVirtualReality "DnDVirtualReality.cpp" "DnDVirtualReality.h" 
 		                         "Engine.cpp" "Engine.h"
-								 "Scene.cpp" "Scene.h"
 								 "Model.cpp" "Model.h"
 								 "Light.cpp" "Light.h"
 								 "Texture.cpp" "Texture.h"
