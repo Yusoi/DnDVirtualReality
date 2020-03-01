@@ -4,18 +4,16 @@ Camera::Camera() {
 	this->cameraPos = vec3(0.0f, 0.0f, 3.0f);
 	this->cameraTarget = vec3(0.0f, 0.0f, 0.0f);
 	this->up = vec3(0.0f, 1.0f, 0.0f);
-	this->cameraPosDisplacement = vec3(0.0f, 0.0f, -1.0f);
-	this->cameraTargetDisplacement = vec3(0.0f, 0.0f, -1.0f);
-	this->angle = 0.0f;
+	this->xzangle = 0.0f;
+	this->yangle = 0.0f;
 }
 
 Camera::Camera(vec3 cameraPos, vec3 cameraTarget, vec3 up) {
 	this->cameraPos = cameraPos;
 	this->cameraTarget = cameraTarget;
 	this->up = up;
-	this->cameraPosDisplacement = vec3(0.0f, 0.0f, -1.0f);
-	this->cameraTargetDisplacement = vec3(0.0f, 0.0f, -1.0f);
-	this->angle = 0.0f;
+	this->xzangle = 0.0f;
+	this->yangle = 0.0f;
 }
 
 vec3 Camera::getCameraPos() {
@@ -26,28 +24,12 @@ void Camera::setCameraPos(vec3 cameraPos) {
 	this->cameraPos = cameraPos;
 }
 
-vec3 Camera::getCameraPosDisplacement() {
-	return cameraPosDisplacement;
-}
-
-void Camera::setCameraPosDisplacement(vec3 cameraPosDisplacement) {
-	this->cameraPosDisplacement = cameraPosDisplacement;
-}
-
 vec3 Camera::getCameraTarget() {
 	return cameraTarget;
 }
 
 void Camera::setCameraTarget(vec3 cameraTarget) {
 	this->cameraTarget = cameraTarget;
-}
-
-vec3 Camera::getCameraTargetDisplacement() {
-	return cameraTargetDisplacement;
-}
-
-void Camera::setCameraTargetDisplacement(vec3 cameraTargetDisplacement) {
-	this->cameraTargetDisplacement = cameraTargetDisplacement;
 }
 
 vec3 Camera::getUpVector() {
@@ -58,16 +40,24 @@ void Camera::setUpVector(vec3 up) {
 	this->up = up;
 }
 
-float Camera::getAngle() {
-	return angle;
+float Camera::getXZAngle() {
+	return xzangle;
 }
 
-void Camera::setAngle(float angle) {
-	this->angle = angle;
+void Camera::setXZAngle(float xzangle) {
+	this->xzangle = xzangle;
+}
+
+float Camera::getYAngle() {
+	return yangle;
+}
+
+void Camera::setYAngle(float yangle) {
+	this->yangle = yangle;
 }
 
 void Camera::lookAt() {
 	gluLookAt(cameraPos.x, cameraPos.y, cameraPos.z,
-			  cameraTarget.x+cameraPosDisplacement.x, cameraTarget.y, cameraTarget.z+cameraPosDisplacement.z,
+			  cameraTarget.x, cameraTarget.y, cameraTarget.z,
 			  up.x, up.y, up.z);
 }

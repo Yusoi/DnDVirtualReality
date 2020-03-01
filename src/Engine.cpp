@@ -1,9 +1,9 @@
 #include "Engine.h"
 
 Engine::Engine() {
-	camera = new Camera(vec3(0.0f, 100.0f, -100.0f), vec3(0.0f, 50.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+	camera = new Camera(vec3(0.0f, 50.0f, 200.0f), vec3(0.0f, 50.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
 
-	Model* barrel = new Model("Barrel", "C:/Users/Posqg/source/repos/DnDVirtualReality/res/demos/metal_barrel.obj");
+	Model* barrel = new Model("Barrel", "../../../../res/demos/metal_barrel.obj");
 	models.push_back(barrel);
 }
 
@@ -47,6 +47,7 @@ void Engine::renderScene(void) {
 	glLoadIdentity();
 	camera->lookAt();
 
+	//Plane
 	glColor3f(0.2f, 0.2f, 0.2f);
 	glBegin(GL_QUADS);
 	glVertex3f(200.0f, 0.0f, 200.0f);
@@ -100,33 +101,41 @@ void Engine::reshapeWindowWrapper(int w, int h) {
 
 void Engine::processNormalKeys(unsigned char key, int x, int y) {
 	vec3 cameraPos = camera->getCameraPos();
-	vec3 cameraPosDisplacement = camera->getCameraPosDisplacement();
 	vec3 cameraTarget = camera->getCameraTarget();
-	vec3 cameraTargetDisplacement = camera->getCameraTargetDisplacement();
-	float angle = camera->getAngle();
+	
+	float xzangle = camera->getXZAngle();
+	float yangle = camera->getYAngle();
+
+	vec3 toTarget = cameraPos - cameraTarget;
+	float distanceToCenterXZ = sqrt(pow(cameraPos.x, 2)+pow(cameraPos.z, 2));
+	float distanceToCenter = distance(toTarget,vec3(0.0f,0.0f,0.0f));
 
 	float fraction = 1.0f;
 
 	switch (key) {
 	case 'w':
-		camera->setCameraPos(vec3(cameraPos.x + cameraPosDisplacement.x * fraction, cameraPos.y, cameraPos.z + cameraPosDisplacement.z * fraction));
+		yangle += 0.1f;
+		camera->setYAngle(yangle);
+		camera->setCameraPos(vec3(cameraPos.x,abs(distanceToCenter*sin(yangle)),cameraPos.z));
 		break;
 	case 's':
-		camera->setCameraPos(vec3(cameraPos.x - cameraPosDisplacement.x * fraction, cameraPos.y, cameraPos.z - cameraPosDisplacement.z * fraction));
+		yangle -= 0.1f;
+		camera->setYAngle(yangle);
+		camera->setCameraPos(vec3(cameraPos.x, abs(distanceToCenter * sin(yangle)), cameraPos.z));
+		break;
 		break;
 	case 'a':
-		angle -= 0.1f;
-		camera->setAngle(angle);
-		camera->setCameraPosDisplacement(vec3(sin(angle),cameraPosDisplacement.y,-cos(angle)));
+		xzangle -= 0.1f;
+		camera->setXZAngle(xzangle);
+		camera->setCameraPos(vec3(distanceToCenterXZ*sin(xzangle),cameraPos.y,distanceToCenterXZ*+cos(xzangle)));
 		break;
 	case 'd':
-		angle += 0.1f;
-		camera->setAngle(angle);
-		camera->setCameraPosDisplacement(vec3(sin(angle), cameraPosDisplacement.y, -cos(angle)));
+		xzangle += 0.1f;
+		camera->setXZAngle(xzangle);
+		camera->setCameraPos(vec3(distanceToCenterXZ*sin(xzangle), cameraPos.y, distanceToCenterXZ*+cos(xzangle)));
 		break;
-	
 	}
-	//glutPostRedisplay();
+
 }
 
 void Engine::processNormalKeysWrapper(unsigned char key, int x, int y) {
