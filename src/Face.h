@@ -12,16 +12,16 @@ using namespace glm;
 
 class Face {
 	private:
-		vector<int> vertex_index;
+		vector<int> position_index;
 		vector<int> texture_index;
 		vector<int> normal_index;
 		int type;
 	public:
 		Face(int type);
-		void add_vertex(int index);
+		void add_position(int index);
 		void add_texture(int index);
 		void add_normal(int index);
-		vector<int>* get_vertex_index(); 
+		vector<int>* get_position_index(); 
 		vector<int>* get_texture_index();
 		vector<int>* get_normal_index();
 		int getType();

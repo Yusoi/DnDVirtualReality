@@ -21,12 +21,20 @@ class Model {
 	private:
 		const char* name;
 		const char *path;
-		vector<vec3> vertices;
-		vector<vec2> textureCoords;
+
+		GLuint m_VAO;		 //VAO
+		GLuint m_buffers[4]; //Buffer 1-Positions 2-Normals 3-TexCoords 4-Indices
+		int buffer_size[4]; //Buffer Size 1-Positions 2-Normals 3-TexCoords 4-Indices
+
+		vector<vec3> positions;
 		vector<vec3> normals;
+		vector<vec2> textureCoords;
 		vector<Face*> faces;
 	public:
 		Model(char *name, char *path);
+		void load_model(char* path);
+		void prepare_vao();
+		void drawVAO();
 		void draw();
 		void print();
 };

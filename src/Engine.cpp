@@ -1,10 +1,12 @@
 #include "Engine.h"
 
 Engine::Engine() {
-	camera = new Camera(vec3(0.0f, 50.0f, 200.0f), vec3(0.0f, 50.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+	camera = new Camera(vec3(0.0f, 1.0f, 2.0f), vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
 
-	Model* barrel = new Model("Barrel", "../../../../res/demos/metal_barrel.obj");
-	models.push_back(barrel);
+	Model* knight = new Model("Knight", "D:/Desktop/Caballero/obj/Caballero.obj");
+	models.push_back(knight);
+	//Model* barrel = new Model("Barrel", "../../../../res/demos/metal_barrel.obj");
+	//models.push_back(barrel);
 }
 
 

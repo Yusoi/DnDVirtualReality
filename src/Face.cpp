@@ -4,8 +4,8 @@ Face::Face(int type) {
 	this->type = type;
 }
 
-void Face::add_vertex(int index) {
-	vertex_index.push_back(index);
+void Face::add_position(int index) {
+	position_index.push_back(index);
 }
 
 void Face::add_texture(int index) {
@@ -16,8 +16,8 @@ void Face::add_normal(int index) {
 	normal_index.push_back(index);
 }
 
-vector<int>* Face::get_vertex_index() {
-	return &vertex_index;
+vector<int>* Face::get_position_index() {
+	return &position_index;
 }
 
 vector<int>* Face::get_texture_index() {
@@ -33,5 +33,5 @@ int Face::getType() {
 }
 
 int Face::size() {
-	return vertex_index.size();
+	return position_index.size();
 }
