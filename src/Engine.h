@@ -30,7 +30,6 @@ class Engine {
 		Engine();
 	public:
 		static Engine* getInstance();
-		void run(int argc, char* argv[]);
 		void renderScene();
 		static void renderSceneWrapper();
 		void reshapeWindow(int w, int h);
@@ -42,5 +41,7 @@ class Engine {
 		void addModel(Model* model);
 		void addPresetLight(PresetLight* presetLight);
 		void addCustomLight(CustomLight* customLight);
+		void loadModels();
+		void run(int argc, char* argv[]);
 };
 

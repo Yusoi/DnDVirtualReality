@@ -6,24 +6,22 @@
 #include "GL/freeglut.h"
 #include "glm/glm.hpp"
 #include <vector>
+#include <iostream>
 
 using namespace std;
 using namespace glm;
 
 class Face {
 	private:
-		vector<int> position_index;
-		vector<int> texture_index;
-		vector<int> normal_index;
-		int type;
+		vec3 position_index;
+		vec3 texture_index;
+		vec3 normal_index;
 	public:
-		Face(int type);
-		void add_position(int index);
-		void add_texture(int index);
-		void add_normal(int index);
-		vector<int>* get_position_index(); 
-		vector<int>* get_texture_index();
-		vector<int>* get_normal_index();
-		int getType();
-		int size();
+		Face();
+		void add_position(vec3 index);
+		void add_texture(vec3 index);
+		void add_normal(vec3 index);
+		vec3 get_position_index(); 
+		vec3 get_texture_index();
+		vec3 get_normal_index();
 };

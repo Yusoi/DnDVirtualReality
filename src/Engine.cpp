@@ -3,8 +3,6 @@
 Engine::Engine() {
 	camera = new Camera(vec3(0.0f, 1.0f, 2.0f), vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
 
-	Model* knight = new Model("Knight", "D:/Desktop/Caballero/obj/Caballero.obj");
-	models.push_back(knight);
 	//Model* barrel = new Model("Barrel", "../../../../res/demos/metal_barrel.obj");
 	//models.push_back(barrel);
 }
@@ -15,32 +13,6 @@ Engine* Engine::getInstance() {
 		engine = new Engine();
 	}
 	return engine;
-}
-
-void drawSnowMan() {
-
-	glColor3f(1.0f, 1.0f, 1.0f);
-
-	// Draw Body
-	glTranslatef(0.0f, 0.75f, 0.0f);
-	glutSolidSphere(0.75f, 20, 20);
-
-	// Draw Head
-	glTranslatef(0.0f, 1.0f, 0.0f);
-	glutSolidSphere(0.25f, 20, 20);
-
-	// Draw Eyes
-	glPushMatrix();
-	glColor3f(0.0f, 0.0f, 0.0f);
-	glTranslatef(0.05f, 0.10f, 0.18f);
-	glutSolidSphere(0.05f, 10, 10);
-	glTranslatef(-0.1f, 0.0f, 0.0f);
-	glutSolidSphere(0.05f, 10, 10);
-	glPopMatrix();
-
-	// Draw Nose
-	glColor3f(1.0f, 0.5f, 0.5f);
-	glutSolidCone(0.08f, 0.5f, 10, 2);
 }
 
 void Engine::renderScene(void) {
@@ -156,8 +128,6 @@ void Engine::processSpecialkeysWrapper(int key, int x, int y) {
 	e->processSpecialKeys(key, x, y);
 }
 
-
-
 void Engine::addModel(Model* model) {
 	this->models.push_back(model);
 }
@@ -170,14 +140,21 @@ void Engine::addCustomLight(CustomLight* customLight) {
 	this->customLights.push_back(customLight);
 }
 
+void Engine::loadModels() {
+	Model* knight = new Model("Knight", "D:/Desktop/Caballero/obj/Caballero.obj");
+	models.push_back(knight);
+
+	//knight->print();
+}
+
 void Engine::run(int argc, char *argv[]) {
-	
 	//Init GLUT and create window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 	glutInitWindowSize(512, 512);
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow("DnD VR");
+	//TODO read the generated file and upload it to the scene.
 
 	//GLEW init
 	GLenum err = glewInit();
@@ -185,7 +162,7 @@ void Engine::run(int argc, char *argv[]) {
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 	}
 
-	//TODO read the generated file and upload it to the scene.
+	loadModels();
 
 	//Register callbacks
 	glutDisplayFunc(renderSceneWrapper);
@@ -196,6 +173,9 @@ void Engine::run(int argc, char *argv[]) {
 	glutSpecialFunc(processSpecialkeysWrapper);
 
 	//OpenGL init
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnable(GL_DEPTH_TEST);
 
 	//enter GLUT event processing
