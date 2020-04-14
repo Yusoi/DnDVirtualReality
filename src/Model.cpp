@@ -180,6 +180,7 @@ void Model::load_model(char* path) {
 }
 
 void Model::prepare_vao() {
+	/*
 	unsigned long long positions_array_size = buffer_size[POS_VBO] * 3;
 	unsigned long long normals_array_size = buffer_size[NOR_VBO] * 3;
 	unsigned long long textures_array_size = buffer_size[TEX_VBO] * 2;
@@ -189,9 +190,41 @@ void Model::prepare_vao() {
 	float* normals_array = (float*) malloc(sizeof(float) * normals_array_size);
 	float* textures_array = (float*) malloc(sizeof(float) * textures_array_size);
 	float* indexes_array = (float*) malloc(sizeof(float) * indexes_array_size);
+	*/
 
+	//Provisóriamente o tamanho dos índices é igual ao tamanho de faces
+	unsigned long long faces_size = faces.size();
+	unsigned long long vertices_size = faces_size * 3;
+
+	float* positions_array = (float*)malloc(sizeof(float) * vertices_size * 3);
+	float* textures_array = (float*)malloc(sizeof(float) * vertices_size * 2);
+	float* normals_array = (float*)malloc(sizeof(float) * vertices_size * 3);
+	int* indexes_array = (int*)malloc(sizeof(int) * faces_size * 3);
 
 	int index = 0;
+	for (vector<Face*>::iterator face_it = faces.begin(); face_it < faces.end(); ++face_it) {
+		Face* face = (*face_it);
+		vec3 pos_ind = face->get_position_index();
+		vec3 norm_ind = face->get_normal_index();
+		vec3 tex_ind = face->get_texture_index();
+
+		vec3 pos_x = positions.at(pos_ind.x);
+		vec3 pos_y = positions.at(pos_ind.y);
+		vec3 pos_z = positions.at(pos_ind.z);
+
+		//TODO
+
+		vec3 norm_x = normals.at(norm_ind.x);
+		vec3 norm_y = normals.at(norm_ind.y);
+		vec3 norm_z = normals.at(norm_ind.z);
+
+		vec2 tex_x = textureCoords.at(tex_ind.x);
+		vec2 tex_y = textureCoords.at(tex_ind.y);
+
+
+	}
+
+	/*
 	for (vector<vec3>::iterator pos_it = positions.begin(); pos_it < positions.end(); ++pos_it) {
 		positions_array[index] = (float)(*pos_it).x;
 		positions_array[index+1] = (float)(*pos_it).y;
@@ -223,40 +256,37 @@ void Model::prepare_vao() {
 		indexes_array[index + 2] = pos.z;
 		index += 3;
 	}
+	*/
 
 	glGenVertexArrays(1,&m_VAO);
-	cout << glGetError() << endl;
 	glBindVertexArray(m_VAO);
-	cout << glGetError() << endl;
 
 	/**
 	* Generates 4 buffers:
 	* 1 - Vertex Positions
-	* 2 - Vertex Normals
-	* 3 - Vertex Textures
+	* 2 - Vertex Textures
+	* 3 - Vertex Normals
 	* 4 - Indexes
 	*/
 	glGenBuffers(4, m_buffers);
 
 	glBindBuffer(GL_ARRAY_BUFFER,m_buffers[POS_VBO]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(positions_array[0]) * positions_array_size, positions_array, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(positions_array[0]) * vertices_size, positions_array, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
-	glBindBuffer(GL_ARRAY_BUFFER, m_buffers[NOR_VBO]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(normals_array[0]) * normals_array_size, normals_array, GL_STATIC_DRAW);
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
 	glBindBuffer(GL_ARRAY_BUFFER, m_buffers[TEX_VBO]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(textures_array[0]) * textures_array_size, textures_array, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(textures_array[0]) * vertices_size, textures_array, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_buffers[NOR_VBO]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(normals_array[0]) * vertices_size, normals_array, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffers[IND_VBO]);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexes_array[0]) * indexes_array_size, indexes_array, GL_STATIC_DRAW);
-	glEnableVertexAttribArray(3);
-	glVertexAttribPointer(3, 3, GL_INT, GL_FALSE, 0, 0);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexes_array[0]) * vertices_size, indexes_array, GL_STATIC_DRAW);
 
 	//Unbind the VAO at the end;
 	glBindVertexArray(0);
@@ -277,7 +307,9 @@ void Model::drawVAO() {
 							 GL_UNSIGNED_INT,
 							 indexe)*/
 
+	//glEnable(GL_LIGHTING);
 	glDrawArrays(GL_TRIANGLES, 0, buffer_size[POS_VBO] * 3);
+	//glDisable(GL_LIGHTING);
 	
 	//Unbind the VAO
 	glBindVertexArray(0);

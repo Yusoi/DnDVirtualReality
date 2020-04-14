@@ -34,7 +34,7 @@ void Engine::renderScene(void) {
 
 	//Draw models
 	for (vector<Model*>::iterator it = models.begin(); it < models.end(); ++it) {
-		(*it)->draw();
+		(*it)->drawVAO();
 	}
 
 	glutSwapBuffers();
