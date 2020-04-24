@@ -97,7 +97,6 @@ void Model::load_model(char* path) {
 					face2->add_texture(vec3(stoi(match[6]), stoi(match[8]), stoi(match[2]))); 
 					faces.push_back(face2);
 				}
-				
 			}
 
 			//Face format f v1/vt1/vn1 v2/vt2/vn2 v3/vt3/vn3 ...
@@ -180,83 +179,82 @@ void Model::load_model(char* path) {
 }
 
 void Model::prepare_vao() {
-	/*
-	unsigned long long positions_array_size = buffer_size[POS_VBO] * 3;
-	unsigned long long normals_array_size = buffer_size[NOR_VBO] * 3;
-	unsigned long long textures_array_size = buffer_size[TEX_VBO] * 2;
-	unsigned long long indexes_array_size = buffer_size[IND_VBO] * 3;
-	
-	float* positions_array = (float*) malloc(sizeof(float) * positions_array_size);
-	float* normals_array = (float*) malloc(sizeof(float) * normals_array_size);
-	float* textures_array = (float*) malloc(sizeof(float) * textures_array_size);
-	float* indexes_array = (float*) malloc(sizeof(float) * indexes_array_size);
-	*/
-
 	//Provisóriamente o tamanho dos índices é igual ao tamanho de faces
-	unsigned long long faces_size = faces.size();
-	unsigned long long vertices_size = faces_size * 3;
+	unsigned long long vertices_size = faces.size() * 3;
 
 	float* positions_array = (float*)malloc(sizeof(float) * vertices_size * 3);
 	float* textures_array = (float*)malloc(sizeof(float) * vertices_size * 2);
 	float* normals_array = (float*)malloc(sizeof(float) * vertices_size * 3);
-	int* indexes_array = (int*)malloc(sizeof(int) * faces_size * 3);
+	int* indexes_array = (int*)malloc(sizeof(int) * vertices_size * 3);
 
+	int pos_index = 0;
+	int tex_index = 0;
+	int norm_index = 0;
 	int index = 0;
+
 	for (vector<Face*>::iterator face_it = faces.begin(); face_it < faces.end(); ++face_it) {
 		Face* face = (*face_it);
 		vec3 pos_ind = face->get_position_index();
-		vec3 norm_ind = face->get_normal_index();
 		vec3 tex_ind = face->get_texture_index();
+		vec3 norm_ind = face->get_normal_index();
 
-		vec3 pos_x = positions.at(pos_ind.x);
-		vec3 pos_y = positions.at(pos_ind.y);
-		vec3 pos_z = positions.at(pos_ind.z);
+		vec3 pos_x = positions.at(pos_ind.x-1);
+		vec3 pos_y = positions.at(pos_ind.y-1);
+		vec3 pos_z = positions.at(pos_ind.z-1);
 
-		//TODO
+		vec2 tex_x = textureCoords.at(tex_ind.x-1);
+		vec2 tex_y = textureCoords.at(tex_ind.y-1);
+		vec2 tex_z = textureCoords.at(tex_ind.z-1);
 
-		vec3 norm_x = normals.at(norm_ind.x);
-		vec3 norm_y = normals.at(norm_ind.y);
-		vec3 norm_z = normals.at(norm_ind.z);
+		vec3 norm_x = normals.at(norm_ind.x-1);
+		vec3 norm_y = normals.at(norm_ind.y-1);
+		vec3 norm_z = normals.at(norm_ind.z-1);
 
-		vec2 tex_x = textureCoords.at(tex_ind.x);
-		vec2 tex_y = textureCoords.at(tex_ind.y);
+		positions_array[pos_index++] = pos_x.x;
+		positions_array[pos_index++] = pos_x.y;
+		positions_array[pos_index++] = pos_x.z;
+		positions_array[pos_index++] = pos_y.x;
+		positions_array[pos_index++] = pos_y.y;
+		positions_array[pos_index++] = pos_y.z;
+		positions_array[pos_index++] = pos_z.x;
+		positions_array[pos_index++] = pos_z.y;
+		positions_array[pos_index++] = pos_z.z;
 
+		textures_array[tex_index++] = tex_x.x;
+		textures_array[tex_index++] = tex_x.y;
+		textures_array[tex_index++] = tex_y.x;
+		textures_array[tex_index++] = tex_y.y;
+		textures_array[tex_index++] = tex_z.x;
+		textures_array[tex_index++] = tex_z.y;
 
+		normals_array[norm_index++] = norm_x.x;
+		normals_array[norm_index++] = norm_x.y;
+		normals_array[norm_index++] = norm_x.z;
+		normals_array[norm_index++] = norm_y.x;
+		normals_array[norm_index++] = norm_y.y;
+		normals_array[norm_index++] = norm_y.z;
+		normals_array[norm_index++] = norm_z.x;
+		normals_array[norm_index++] = norm_z.y;
+		normals_array[norm_index++] = norm_z.z;
+
+		for (int i = index; index < i+9; index++) {
+			indexes_array[index] = index;
+		}
+		
 	}
 
-	/*
-	for (vector<vec3>::iterator pos_it = positions.begin(); pos_it < positions.end(); ++pos_it) {
-		positions_array[index] = (float)(*pos_it).x;
-		positions_array[index+1] = (float)(*pos_it).y;
-		positions_array[index + 2] = (float)(*pos_it).z;
-		index += 3;
-	}
+	buffer_size[POS_VBO] = vertices_size * 3;
+	buffer_size[TEX_VBO] = vertices_size * 2;
+	buffer_size[NOR_VBO] = vertices_size * 3;
+	buffer_size[IND_VBO] = vertices_size * 3;
 
-	index = 0;
-	for (vector<vec3>::iterator norm_it = normals.begin(); norm_it < normals.end(); ++norm_it) {
-		normals_array[index] = (float)(*norm_it).x;
-		normals_array[index + 1] = (float)(*norm_it).y;
-		normals_array[index + 2] = (float)(*norm_it).z;
-		index += 3;
-	}
+	cout << "We out boys" << endl;
+	cout << "Pos Index: " << pos_index << endl;
+	cout << "Index: " << index << endl;
+	cout << "Faces size: " << faces.size() << endl;
+	cout << "Vertices size: " << vertices_size << endl;
 
-	index = 0;
-	for (vector<vec2>::iterator tex_it = textureCoords.begin(); tex_it < textureCoords.end(); ++tex_it) {
-		textures_array[index] = (float)(*tex_it).x;
-		textures_array[index + 1] = (float)(*tex_it).y;
-		index += 2;
-	}
 
-	index = 0;
-	for (vector<Face*>::iterator face_it = faces.begin(); face_it < faces.end(); ++face_it) {
-		Face* face = (*face_it);
-		vec3 pos = face->get_position_index();
-		indexes_array[index] = pos.x;
-		indexes_array[index + 1] = pos.y;
-		indexes_array[index + 2] = pos.z;
-		index += 3;
-	}
-	*/
 
 	glGenVertexArrays(1,&m_VAO);
 	glBindVertexArray(m_VAO);
@@ -271,22 +269,22 @@ void Model::prepare_vao() {
 	glGenBuffers(4, m_buffers);
 
 	glBindBuffer(GL_ARRAY_BUFFER,m_buffers[POS_VBO]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(positions_array[0]) * vertices_size, positions_array, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices_size * 3, positions_array, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_buffers[TEX_VBO]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(textures_array[0]) * vertices_size, textures_array, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices_size * 2, textures_array, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_buffers[NOR_VBO]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(normals_array[0]) * vertices_size, normals_array, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices_size * 3, normals_array, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffers[IND_VBO]);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexes_array[0]) * vertices_size, indexes_array, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int) * vertices_size * 3, indexes_array, GL_STATIC_DRAW);
 
 	//Unbind the VAO at the end;
 	glBindVertexArray(0);
@@ -301,15 +299,13 @@ void Model::prepare_vao() {
 void Model::drawVAO() {
 	glBindVertexArray(m_VAO);
 
-	/*
-	glDrawElementsBaseVertex(GL_TRIANGLES,
-							 faces.size(),
-							 GL_UNSIGNED_INT,
-							 indexe)*/
-
-	//glEnable(GL_LIGHTING);
-	glDrawArrays(GL_TRIANGLES, 0, buffer_size[POS_VBO] * 3);
-	//glDisable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHTING);
+	GLfloat position[] = { 200.0, 200.0, 200.0, 0.0 };
+	glLightfv(GL_LIGHT0, GL_POSITION, position);
+	//glDrawArrays(GL_TRIANGLES, 0, buffer_size[POS_VBO] * 3);
+	glDrawElements(GL_TRIANGLES, buffer_size[POS_VBO] * 3, GL_UNSIGNED_INT, 0);
+	glDisable(GL_LIGHTING);
 	
 	//Unbind the VAO
 	glBindVertexArray(0);
@@ -364,6 +360,5 @@ void Model::print() {
 		cout << "Pos: " << pos.x << " " << pos.y << " " << pos.z << "\n";
 		cout << "Nor: " << nor.x << " " << nor.y << " " << nor.z << "\n";
 		cout << "Tex: " << tex.x << " " << tex.y << " " << tex.z << "\n";
-
 	}
 }
