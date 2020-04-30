@@ -21,18 +21,21 @@ regex s("s +([0-9]+)");
 //Group
 regex g("g +(\\w+)");
 
-Model::Model(char *name, char *path) {
+Model::Model(char *name, char *obj_path, char *tex_path) {
 	this->name = name;
-	this->path = path;
+	this->obj_path = obj_path;
+	this->tex_path = tex_path;
 
-	load_model(path);
+	load_texture(tex_path);
+	load_model(obj_path);
+	
 }
 
-void Model::load_model(char* path) {
+void Model::load_model(char* obj_path) {
 	ifstream input_file;
 	string line;
 
-	input_file.open(path);
+	input_file.open(obj_path);
 
 	smatch match;
 
@@ -296,7 +299,39 @@ void Model::prepare_vao() {
 
 }
 
+void Model::load_texture(char* tex_path) {
+	unsigned int tex, tex_w, tex_h;
+	unsigned char* texData;
+
+	ilGenImages(1,&tex);
+	ilBindImage(tex);
+	if (!ilLoadImage((ILstring)tex_path)) {
+		cout << ilGetError() << endl;
+		exit(1);
+	}
+	tex_w = ilGetInteger(IL_IMAGE_WIDTH);
+	tex_h = ilGetInteger(IL_IMAGE_HEIGHT);
+	ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+	texData = ilGetData();
+
+	glGenTextures(1, &tex_buffer);
+
+	glBindTexture(GL_TEXTURE_2D, tex_buffer);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex_w, tex_h, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+}
+
 void Model::drawVAO() {
+	glBindTexture(GL_TEXTURE_2D, tex_buffer);
 	glBindVertexArray(m_VAO);
 
 	glEnable(GL_LIGHT0);
@@ -304,11 +339,14 @@ void Model::drawVAO() {
 	GLfloat position[] = { 200.0, 200.0, 200.0, 0.0 };
 	glLightfv(GL_LIGHT0, GL_POSITION, position);
 	//glDrawArrays(GL_TRIANGLES, 0, buffer_size[POS_VBO] * 3);
-	glDrawElements(GL_TRIANGLES, buffer_size[POS_VBO] * 3, GL_UNSIGNED_INT, 0);
+	
+	glDrawArrays(GL_TRIANGLES, 0, buffer_size[POS_VBO] * 3);
+	
 	glDisable(GL_LIGHTING);
 	
 	//Unbind the VAO
 	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Model::draw() {
@@ -336,7 +374,8 @@ void Model::draw() {
 //Print for Debugging
 void Model::print() {
 	cout << name << "\n";
-	cout << path << "\n";
+	cout << obj_path << "\n";
+	cout << tex_path << "\n";
 	/*
 	cout << "Positions - Size: " << positions.size() << "\n";
 	for (vector<vec3>::iterator it = positions.begin(); it != positions.end(); ++it) {

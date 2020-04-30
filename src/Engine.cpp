@@ -141,7 +141,7 @@ void Engine::addCustomLight(CustomLight* customLight) {
 }
 
 void Engine::loadModels() {
-	Model* knight = new Model("Knight", "D:/Desktop/Caballero/obj/Caballero.obj");
+	Model* knight = new Model("Knight", "D:/Desktop/Caballero/obj/Caballero.obj", "D:/Desktop/Caballero/Texture/Diffuse.png");
 	models.push_back(knight);
 
 	//knight->print();
@@ -162,7 +162,18 @@ void Engine::run(int argc, char *argv[]) {
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 	}
 
+	ilInit();
+	ilEnable(IL_ORIGIN_SET);
+	ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
+
 	loadModels();
+
+	//OpenGL init
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_TEXTURE_2D);
 
 	//Register callbacks
 	glutDisplayFunc(renderSceneWrapper);
@@ -172,11 +183,7 @@ void Engine::run(int argc, char *argv[]) {
 	glutKeyboardFunc(processNormalKeysWrapper);
 	glutSpecialFunc(processSpecialkeysWrapper);
 
-	//OpenGL init
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnable(GL_DEPTH_TEST);
+	
 
 	//enter GLUT event processing
 	glutMainLoop();
