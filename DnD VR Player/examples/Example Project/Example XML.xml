@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<board name="Example Board" x="5" y="5">
+  <models>
+    <model id="1" 
+           model="models/1.vbo"
+           texture="models/textures/1.png"/>
+    <model id="2"
+           model="models/2.vbo"
+           texture="models/textures/2.png"/>
+    <model id="3"
+           model="models/3.vbo"
+           texture="models/textures/3.png"/>
+  </models>
+
+  <actors>
+    <actor id="1"
+           name="Knight"
+           model_id="1"/>
+    <actor id="2"
+           name="Mage"
+           model_id="2"/>
+    <actor id="3"
+           name="Goblin"
+           model_id="3"/>
+    <actor id="4"
+           name="Goblin"
+           model_id="3"/>
+    <actor id="5"
+           name="Goblin"
+           model_id="3"/>
+    <actor id="6"
+           name="Goblin"
+           model_id="3"/>
+  </actors>
+  
+  <boardFile path="Example Board.brd" />
+</board>
