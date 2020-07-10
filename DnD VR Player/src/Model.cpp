@@ -17,9 +17,9 @@ regex f2("f +([0-9]+)\\/([0-9]+) +([0-9]+)\\/([0-9]+) +([0-9]+)\\/([0-9]+) +([0-
 regex f3("f +([0-9]+)\\/([0-9]+)\\/([0-9]+) +([0-9]+)\\/([0-9]+)\\/([0-9]+) +([0-9]+)\\/([0-9]+)\\/([0-9]+) +([0-9]+)\\/([0-9]+)\\/([0-9]+)?");
 regex f4("f +([0-9]+)\\/\\/([0-9]+) +([0-9]+)\\/\\/([0-9]+) +([0-9]+)\\/\\/([0-9]+) +([0-9]+)\\/\\/([0-9]+)?");
 //Smooth shading polygons (Not supported for now)
-regex s("s +([0-9]+)");
+//regex s("s +([0-9]+)");
 //Group
-regex g("g +(\\w+)");
+//regex g("g +(\\w+)");
 
 Model::Model(char *name, char *obj_path, char *tex_path) {
 	this->name = name;
@@ -125,7 +125,6 @@ void Model::load_model(char* obj_path) {
 					face2->add_normal(vec3(stoi(match[9]), stoi(match[12]), stoi(match[3])));
 					faces.push_back(face2);
 				}
-				
 			}
 
 			//Face format f v1//vn1 v2//vn2 v3//vn3 ...
@@ -363,7 +362,6 @@ void Model::draw() {
 		vec3 pos3 = positions.at(position_indexes.z - 1);
 		glVertex3f(pos3.x, pos3.y, pos3.z);
 		
-
 		glEnd();
 	}
 }

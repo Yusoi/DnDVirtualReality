@@ -9,25 +9,33 @@
 using namespace std;
 using namespace glm;
 
-class Mesh {
-private:
-	multimap<vec3,Vertex> mesh;
-	vector<vec3> indices;
-public:
-	void add_vertex(Vertex vertex);
-	void create_vertex(vec3 coords, vec3 normals, vec3 textures);
-};
-
 class Vertex {
 private:
 	vec3 coords;
 	vec3 normals;
-	vec3 textures;
+	vec2 textures;
+	vector<int> indexes;
 public:
+	Vertex(vec3 coords, vec3 normals, vec2 textures);
 	vec3 getCoords();
 	vec3 getNormals();
-	vec3 getTextures();
+	vec2 getTextures();
+	vector<int> getIndexes();
 	void setCoords(vec3 coords);
 	void setNormals(vec3 normals);
-	void setTextures(vec3 textures);
+	void setTextures(vec2 textures);
+	void addIndex(int index);
+	bool equals(Vertex vertex);
+};
+
+class Mesh {
+private:
+	multimap<vec3,Vertex> mesh;
+public:
+	Mesh();
+	Vertex* add_vertex(Vertex vertex);
+	Vertex* get_vertex(Vertex vertex);
+	multimap<vec3, Vertex>::iterator getBegin();
+	multimap<vec3, Vertex>::iterator getEnd();
+	int getSize();
 };
