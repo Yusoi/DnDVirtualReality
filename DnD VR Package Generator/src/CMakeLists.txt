@@ -8,7 +8,7 @@ include_directories("glm/")
 # Add source to this project's executable.
 add_executable(DnDVirtualReality "ObjToVbo.cpp" "ObjToVbo.h"
 								  "Mesh.cpp" "Mesh.h" 
-								  "Face.cpp" "Face.h")
+								  "Face.cpp" "Face.h" "DnDVRPackageGenerator.cpp" "DnDVRPackageGenerator.h")
 
 
 # TODO: Add tests and install targets if needed.

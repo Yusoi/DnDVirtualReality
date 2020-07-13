@@ -5,21 +5,9 @@
 #define TEX_VBO 2 //Textures in VBO
 #define IND_VBO 3 //Indexes in VBO
 
-//Vertex
-regex v("v +([-0-9.]+) +([-0-9.]+) +([-0-9.]+)(?: +[-0-9.]+)?");
-//Vertex Normal
-regex vn("vn +([-0-9.]+) +([-0-9.]+) +([-0-9.]+)");
-//Vertex Texture Coordinate
-regex vt("vt +([-0-9.]+) +([-0-9.]+)(?: +[-0-9.]+)?");
-//Faces
-regex f1("f +([0-9]+) +([0-9]+) +([0-9]+) +([0-9]+)?");
-regex f2("f +([0-9]+)\\/([0-9]+) +([0-9]+)\\/([0-9]+) +([0-9]+)\\/([0-9]+) +([0-9]+)\\/([0-9]+)?");
-regex f3("f +([0-9]+)\\/([0-9]+)\\/([0-9]+) +([0-9]+)\\/([0-9]+)\\/([0-9]+) +([0-9]+)\\/([0-9]+)\\/([0-9]+) +([0-9]+)\\/([0-9]+)\\/([0-9]+)?");
-regex f4("f +([0-9]+)\\/\\/([0-9]+) +([0-9]+)\\/\\/([0-9]+) +([0-9]+)\\/\\/([0-9]+) +([0-9]+)\\/\\/([0-9]+)?");
-//Smooth shading polygons (Not supported for now)
-//regex s("s +([0-9]+)");
-//Group
-//regex g("g +(\\w+)");
+
+regex value("[0-9\\.e\\-]+");
+regex size_buffer("\\(([0-9]+),([0-9]+)\\)");
 
 Model::Model(char *name, char *obj_path, char *tex_path) {
 	this->name = name;
@@ -31,6 +19,73 @@ Model::Model(char *name, char *obj_path, char *tex_path) {
 	
 }
 
+void Model::load_model(char* obj_path) {
+	ifstream input_file;
+	string line;
+
+	input_file.open(obj_path);
+
+	smatch match;
+
+	if (input_file.is_open()) {
+
+		getline(input_file, line);
+
+		regex_search(line, match, size_buffer);
+
+		if (match.size() == 3) {
+			int vertex_size = stoi(match[1]);
+			int indices_size = stoi(match[2]);
+
+			buffer_size[POS_VBO] = vertex_size * 3;
+			buffer_size[NOR_VBO] = vertex_size * 3;
+			buffer_size[TEX_VBO] = vertex_size * 2;
+			buffer_size[IND_VBO] = indices_size;
+
+			cout << "Position: " << buffer_size[POS_VBO] << " Normals: " << buffer_size[NOR_VBO] << " Textures: " << buffer_size[TEX_VBO] << " Indices: " << buffer_size[IND_VBO] << endl;
+
+			positions_array = (float*)malloc(sizeof(float) * buffer_size[POS_VBO]);
+			textures_array = (float*)malloc(sizeof(float) * buffer_size[TEX_VBO]);
+			normals_array = (float*)malloc(sizeof(float) * buffer_size[NOR_VBO]);
+			indexes_array = (int*)malloc(sizeof(int) * buffer_size[IND_VBO]);
+
+		}
+
+		const sregex_token_iterator end;
+		int positions_count = 0;
+		int normals_count = 0;
+		int textures_count = 0;
+		int indexes_count = 0;
+
+		getline(input_file, line);
+		for (sregex_token_iterator it(line.begin(), line.end(), value); it != end; it++)
+		{
+			positions_array[positions_count++] = stof(*it);
+		}
+
+		getline(input_file, line);
+		for (sregex_token_iterator it(line.begin(), line.end(), value); it != end; it++)
+		{
+			normals_array[normals_count++] = stof(*it);
+		}
+
+		getline(input_file, line);
+		for (sregex_token_iterator it(line.begin(), line.end(), value); it != end; it++)
+		{
+			textures_array[textures_count++] = stof(*it);
+		}
+
+		getline(input_file, line);
+		for (sregex_token_iterator it(line.begin(), line.end(), value); it != end; it++)
+		{
+			indexes_array[indexes_count++] = stoi(*it);
+		}
+	}
+
+	prepare_vao();
+}
+
+/*
 void Model::load_model(char* obj_path) {
 	ifstream input_file;
 	string line;
@@ -159,21 +214,19 @@ void Model::load_model(char* obj_path) {
 
 	prepare_vao();
 }
+*/
+
 
 void Model::prepare_vao() {
 	//Provisóriamente o tamanho dos índices é igual ao tamanho de faces
-	unsigned long long vertices_size = faces.size() * 3;
-
-	float* positions_array = (float*)malloc(sizeof(float) * vertices_size * 3);
-	float* textures_array = (float*)malloc(sizeof(float) * vertices_size * 2);
-	float* normals_array = (float*)malloc(sizeof(float) * vertices_size * 3);
-	int* indexes_array = (int*)malloc(sizeof(int) * vertices_size * 3);
+	//unsigned long long vertices_size = faces.size() * 3;
 
 	int pos_index = 0;
 	int tex_index = 0;
 	int norm_index = 0;
 	int index = 0;
 
+	/*
 	for (vector<Face*>::iterator face_it = faces.begin(); face_it < faces.end(); ++face_it) {
 		Face* face = (*face_it);
 		vec3 pos_ind = face->get_position_index();
@@ -222,8 +275,9 @@ void Model::prepare_vao() {
 		for (int i = index; index < i+9; index++) {
 			indexes_array[index] = index;
 		}
-		
+
 	}
+
 
 	buffer_size[POS_VBO] = vertices_size * 3;
 	buffer_size[TEX_VBO] = vertices_size * 2;
@@ -235,11 +289,13 @@ void Model::prepare_vao() {
 	cout << "Index: " << index << endl;
 	cout << "Faces size: " << faces.size() << endl;
 	cout << "Vertices size: " << vertices_size << endl;
-
+	*/
 
 
 	//glGenVertexArrays(1,&m_VAO);
 	//glBindVertexArray(m_VAO);
+
+
 
 	/**
 	* Generates 4 buffers:
@@ -250,26 +306,26 @@ void Model::prepare_vao() {
 	*/
 	glGenBuffers(4, m_buffers);
 
-	glBindBuffer(GL_ARRAY_BUFFER,m_buffers[POS_VBO]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices_size * 3, positions_array, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, m_buffers[POS_VBO]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * buffer_size[POS_VBO], positions_array, GL_STATIC_DRAW);
 	//glEnableVertexAttribArray(0);
 	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
-	
+
 	glBindBuffer(GL_ARRAY_BUFFER, m_buffers[TEX_VBO]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices_size * 2, textures_array, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * buffer_size[TEX_VBO], textures_array, GL_STATIC_DRAW);
 	//glEnableVertexAttribArray(1);
 	//glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
-	
+
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_buffers[NOR_VBO]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices_size * 3, normals_array, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * buffer_size[NOR_VBO], normals_array, GL_STATIC_DRAW);
 	//glEnableVertexAttribArray(2);
 	//glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	
 
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffers[IND_VBO]);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int) * vertices_size * 3, indexes_array, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffers[IND_VBO]);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int) * buffer_size[IND_VBO], indexes_array, GL_STATIC_DRAW);
 
 	//Unbind the VAO at the end;
 	//glBindVertexArray(0);
@@ -335,7 +391,9 @@ void Model::drawVAO() {
 	GLfloat position[] = { 200.0, 200.0, 200.0, 0.0 };
 	glLightfv(GL_LIGHT0, GL_POSITION, position);
 
-	glDrawArrays(GL_TRIANGLES, 0, buffer_size[POS_VBO] * 3);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffers[IND_VBO]);
+
+	glDrawElements(GL_TRIANGLES, buffer_size[IND_VBO], GL_UNSIGNED_INT, (void*)0);
 
 	glDisable(GL_LIGHTING);
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -345,10 +403,11 @@ void Model::drawVAO() {
 	
 }
 
+
 void Model::draw() {
 	//cout << "Vertices size: " << vertices.size() << "\n";
 	//cout << "Faces size: " << faces.size() << "\n";
-	
+	/*
 	for (vector<Face*>::iterator it = faces.begin(); it < faces.end(); ++it) {
 		Face *face = (*it);
 		glBegin(GL_TRIANGLES);
@@ -364,6 +423,7 @@ void Model::draw() {
 		
 		glEnd();
 	}
+	*/
 }
 
 //Print for Debugging
@@ -385,6 +445,7 @@ void Model::print() {
 		cout << ((vec2)*it).x << " " << ((vec2)*it).y << "\n";
 	}
 	*/
+	/*
 	cout << "Faces - Size: " << faces.size() << "\n";
 	for (vector<Face*>::iterator it = faces.begin(); it != faces.end(); ++it) {
 		Face* f = (*it);
@@ -395,4 +456,5 @@ void Model::print() {
 		cout << "Nor: " << nor.x << " " << nor.y << " " << nor.z << "\n";
 		cout << "Tex: " << tex.x << " " << tex.y << " " << tex.z << "\n";
 	}
+	*/
 }

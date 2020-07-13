@@ -16,7 +16,7 @@ void ObjToVbo::import_obj_file(char* obj_path) {
 	ifstream input_file;
 	string line;
 
-	input_file.open(obj_path);
+	input_file.open(obj_path, fstream::out);
 
 	smatch match;
 
@@ -138,7 +138,7 @@ void ObjToVbo::import_obj_file(char* obj_path) {
 void ObjToVbo::load_mesh() {
 	int index_count = 0;
 
-	for (vector<Face*>::iterator it = faces.begin(); it < faces.end(); ++it) {
+	for (vector<Face*>::iterator it = faces.begin(); it != faces.end(); ++it) {
 		Face* face = (*it);
 
 		vec3 coords_ind = face->get_position_index();
@@ -150,9 +150,9 @@ void ObjToVbo::load_mesh() {
 		Vertex* vertex_on_map;
 
 		//Insert first vertex in face
-		coords = positions_vec.at(coords_ind.x);
-		normals = normals_vec.at(normals_ind.x);
-		textures = textures_vec.at(textures_ind.x);
+		coords = positions_vec.at(coords_ind.x-1);
+		normals = normals_vec.at(normals_ind.x-1);
+		textures = textures_vec.at(textures_ind.x-1);
 
 		Vertex ver1 = Vertex(coords, normals, textures);
 		vertex_on_map = mesh.get_vertex(ver1);
@@ -162,9 +162,9 @@ void ObjToVbo::load_mesh() {
 		vertex_on_map->addIndex(index_count++);
 
 		//Insert second vertex in face
-		coords = positions_vec.at(coords_ind.y);
-		normals = normals_vec.at(normals_ind.y);
-		textures = textures_vec.at(textures_ind.y);
+		coords = positions_vec.at(coords_ind.y-1);
+		normals = normals_vec.at(normals_ind.y-1);
+		textures = textures_vec.at(textures_ind.y-1);
 
 		Vertex ver2 = Vertex(coords, normals, textures);
 		vertex_on_map = mesh.get_vertex(ver2);
@@ -174,9 +174,9 @@ void ObjToVbo::load_mesh() {
 		vertex_on_map->addIndex(index_count++);
 
 		//Insert third vertex in face
-		coords = positions_vec.at(coords_ind.z);
-		normals = normals_vec.at(normals_ind.z);
-		textures = textures_vec.at(textures_ind.z);
+		coords = positions_vec.at(coords_ind.z-1);
+		normals = normals_vec.at(normals_ind.z-1);
+		textures = textures_vec.at(textures_ind.z-1);
 
 		Vertex ver3 = Vertex(coords, normals, textures);
 		vertex_on_map = mesh.get_vertex(ver3);
@@ -192,7 +192,7 @@ void ObjToVbo::export_vbo_file(char* project_path) {
 	vbo_file.open(project_path);
 
 	int vertex_size = mesh.getSize();
-	int index_size = faces.size();
+	int index_size = faces.size() * 3;
 
 	float *position_buffer, *normals_buffer, *textures_buffer;
 	int* indexes_buffer;
@@ -202,13 +202,13 @@ void ObjToVbo::export_vbo_file(char* project_path) {
 	textures_buffer = (float*)malloc(vertex_size * 2 * sizeof(float));
 	indexes_buffer = (int*)malloc(index_size * sizeof(int));
 
-	multimap<vec3, Vertex>::iterator it; 
-
 	int vertex_count = 0;
 	int normal_count = 0;
 	int texture_count = 0;
 
-	for (it = mesh.getBegin(); it != mesh.getEnd(); ++it) {
+	pair<unordered_multimap<string, Vertex>::iterator, unordered_multimap<string, Vertex>::iterator> mesh_its = mesh.getIterators();
+
+	for (unordered_multimap<string, Vertex>::iterator it = mesh_its.first; it != mesh_its.second; ++it) {		
 		Vertex v = it->second;
 
 		vec3 position = v.getCoords();
@@ -226,12 +226,14 @@ void ObjToVbo::export_vbo_file(char* project_path) {
 		textures_buffer[texture_count++] = texture.x;
 		textures_buffer[texture_count++] = texture.y;
 
-		vector<int>::iterator vertex_it;
-
-		for (vertex_it = v.getIndexes().begin(); vertex_it != v.getIndexes().end(); ++vertex_it) {
-			indexes_buffer[*vertex_it] = vertex_count % 3;
+		vector<int> indexes_vector = v.getIndexes();
+		
+		for (auto vertex_it = indexes_vector.begin(); vertex_it != indexes_vector.end(); ++vertex_it) {
+			indexes_buffer[*vertex_it] = (vertex_count-1)/3;
 		}
 	}
+
+	vbo_file << "(" << vertex_size << "," << index_size << ")" << endl;
 
 	for (int i = 0; i < vertex_count; i+=3) {
 		vbo_file << position_buffer[i] << ":" << position_buffer[i + 1] << ":" << position_buffer[i + 2] << ":";
@@ -245,7 +247,7 @@ void ObjToVbo::export_vbo_file(char* project_path) {
 
 	vbo_file << endl;
 
-	for (int i = 0; i < vertex_count; i += 2) {
+	for (int i = 0; i < texture_count; i += 2) {
 		vbo_file << textures_buffer[i] << ":" << textures_buffer[i + 1] << ":";
 	}
 

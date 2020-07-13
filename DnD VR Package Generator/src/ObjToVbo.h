@@ -10,7 +10,6 @@
 
 class ObjToVbo {
 private:
-	char* obj_path;
 	Mesh mesh;
 
 	vector<vec3> positions_vec;

@@ -1,5 +1,8 @@
 #include <vector>
-#include <map>
+#include <iostream>
+#include <unordered_map>
+#include <string>
+#include <sstream>
 
 #include "GL/glew.h"
 #include "GL/glut.h"
@@ -30,12 +33,13 @@ public:
 
 class Mesh {
 private:
-	multimap<vec3,Vertex> mesh;
+	unordered_multimap<string,Vertex> mesh;
 public:
 	Mesh();
 	Vertex* add_vertex(Vertex vertex);
 	Vertex* get_vertex(Vertex vertex);
-	multimap<vec3, Vertex>::iterator getBegin();
-	multimap<vec3, Vertex>::iterator getEnd();
+	pair<unordered_multimap<string, Vertex>::iterator, unordered_multimap<string, Vertex>::iterator> getIterators();
 	int getSize();
+	
 };
+

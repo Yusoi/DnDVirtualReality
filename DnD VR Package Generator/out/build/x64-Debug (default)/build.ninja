@@ -106,6 +106,14 @@ build src\CMakeFiles\DnDVirtualReality.dir\Face.cpp.obj: CXX_COMPILER__DnDVirtua
   TARGET_COMPILE_PDB = src\CMakeFiles\DnDVirtualReality.dir\
   TARGET_PDB = src\DnDVirtualReality.pdb
 
+build src\CMakeFiles\DnDVirtualReality.dir\DnDVRPackageGenerator.cpp.obj: CXX_COMPILER__DnDVirtualReality_Debug ..\..\..\src\DnDVRPackageGenerator.cpp || cmake_object_order_depends_target_DnDVirtualReality_Debug
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
+  INCLUDES = -I..\..\..\include -I..\..\..\deps\include -I..\..\..\§{IL_INCLUDE_DIR} -I..\..\..\src\glm
+  OBJECT_DIR = src\CMakeFiles\DnDVirtualReality.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\DnDVirtualReality.dir
+  TARGET_COMPILE_PDB = src\CMakeFiles\DnDVirtualReality.dir\
+  TARGET_PDB = src\DnDVirtualReality.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target DnDVirtualReality
@@ -114,7 +122,7 @@ build src\CMakeFiles\DnDVirtualReality.dir\Face.cpp.obj: CXX_COMPILER__DnDVirtua
 #############################################
 # Link the executable src\DnDVirtualReality.exe
 
-build src\DnDVirtualReality.exe: CXX_EXECUTABLE_LINKER__DnDVirtualReality_Debug src\CMakeFiles\DnDVirtualReality.dir\ObjToVbo.cpp.obj src\CMakeFiles\DnDVirtualReality.dir\Mesh.cpp.obj src\CMakeFiles\DnDVirtualReality.dir\Face.cpp.obj | ..\..\..\deps\lib\glew32.lib ..\..\..\deps\lib\freeglut.lib ..\..\..\deps\lib\DevIL.lib
+build src\DnDVirtualReality.exe: CXX_EXECUTABLE_LINKER__DnDVirtualReality_Debug src\CMakeFiles\DnDVirtualReality.dir\ObjToVbo.cpp.obj src\CMakeFiles\DnDVirtualReality.dir\Mesh.cpp.obj src\CMakeFiles\DnDVirtualReality.dir\Face.cpp.obj src\CMakeFiles\DnDVirtualReality.dir\DnDVRPackageGenerator.cpp.obj | ..\..\..\deps\lib\glew32.lib ..\..\..\deps\lib\freeglut.lib ..\..\..\deps\lib\DevIL.lib
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = ..\..\..\deps\lib\glew32.lib  ..\..\..\deps\lib\freeglut.lib  ..\..\..\deps\lib\DevIL.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib

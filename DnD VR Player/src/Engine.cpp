@@ -2,9 +2,6 @@
 
 Engine::Engine() {
 	camera = new Camera(vec3(0.0f, 1.0f, 2.0f), vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
-
-	//Model* barrel = new Model("Barrel", "../../../../res/demos/metal_barrel.obj");
-	//models.push_back(barrel);
 }
 
 
@@ -76,51 +73,51 @@ void Engine::reshapeWindowWrapper(int w, int h) {
 void Engine::processNormalKeys(unsigned char key, int x, int y) {
 	vec3 cameraPos = camera->getCameraPos();
 	vec3 cameraTarget = camera->getCameraTarget();
-	
+
 	float xzangle = camera->getXZAngle();
 	float yangle = camera->getYAngle();
 
 	vec3 toTarget = cameraPos - cameraTarget;
-	float distanceToCenterXZ = sqrt(pow(cameraPos.x, 2)+pow(cameraPos.z, 2));
-	float distanceToCenter = distance(toTarget,vec3(0.0f,0.0f,0.0f));
+	float distanceToCenterXZ = sqrt(pow(cameraPos.x, 2) + pow(cameraPos.z, 2));
+	float distanceToCenter = distance(toTarget, vec3(0.0f, 0.0f, 0.0f));
 
-	vec3 cameraFront = normalize(camera->getCameraTarget()-camera->getCameraPos());
-	vec3 cameraRight = normalize(cross(camera->getUpVector(),camera->getCameraPos()));
+	vec3 cameraFront = normalize(camera->getCameraTarget() - camera->getCameraPos());
+	vec3 cameraRight = normalize(cross(camera->getUpVector(), camera->getCameraPos()));
 
 	float fraction = 0.1f;
 
 	switch (key) {
 	case 'w':
 		camera->setCameraPos(vec3(cameraPos.x + cameraFront.x * fraction,
-								  cameraPos.y + cameraFront.y * fraction,
-								  cameraPos.z + cameraFront.z * fraction));
+			cameraPos.y + cameraFront.y * fraction,
+			cameraPos.z + cameraFront.z * fraction));
 		camera->setCameraTarget(vec3(cameraTarget.x + cameraFront.x * fraction,
-									 cameraTarget.y + cameraFront.y * fraction,
-									 cameraTarget.z + cameraFront.z * fraction));
+			cameraTarget.y + cameraFront.y * fraction,
+			cameraTarget.z + cameraFront.z * fraction));
 		break;
 	case 's':
 		camera->setCameraPos(vec3(cameraPos.x - cameraFront.x * fraction,
-								  cameraPos.y - cameraFront.y * fraction,
-								  cameraPos.z - cameraFront.z * fraction));
+			cameraPos.y - cameraFront.y * fraction,
+			cameraPos.z - cameraFront.z * fraction));
 		camera->setCameraTarget(vec3(cameraTarget.x - cameraFront.x * fraction,
-									 cameraTarget.y - cameraFront.y * fraction,
-									 cameraTarget.z - cameraFront.z * fraction));
+			cameraTarget.y - cameraFront.y * fraction,
+			cameraTarget.z - cameraFront.z * fraction));
 		break;
 	case 'a':
 		camera->setCameraPos(vec3(cameraPos.x - cameraRight.x * fraction,
-								  cameraPos.y - cameraRight.y * fraction,
-								  cameraPos.z - cameraRight.z * fraction));
+			cameraPos.y - cameraRight.y * fraction,
+			cameraPos.z - cameraRight.z * fraction));
 		camera->setCameraTarget(vec3(cameraTarget.x - cameraRight.x * fraction,
-									 cameraTarget.y - cameraRight.y * fraction,
-									 cameraTarget.z - cameraRight.z * fraction));
+			cameraTarget.y - cameraRight.y * fraction,
+			cameraTarget.z - cameraRight.z * fraction));
 		break;
 	case 'd':
 		camera->setCameraPos(vec3(cameraPos.x + cameraRight.x * fraction,
-								  cameraPos.y + cameraRight.y * fraction,
-								  cameraPos.z + cameraRight.z * fraction));
+			cameraPos.y + cameraRight.y * fraction,
+			cameraPos.z + cameraRight.z * fraction));
 		camera->setCameraTarget(vec3(cameraTarget.x + cameraRight.x * fraction,
-									 cameraTarget.y + cameraRight.y * fraction,
-									 cameraTarget.z + cameraRight.z * fraction));
+			cameraTarget.y + cameraRight.y * fraction,
+			cameraTarget.z + cameraRight.z * fraction));
 		break;
 	}
 
@@ -153,7 +150,7 @@ void Engine::addCustomLight(CustomLight* customLight) {
 }
 
 void Engine::loadModels() {
-	Model* knight = new Model("Knight", "D:/Desktop/Models/Caballero/obj/Caballero.obj", "D:/Desktop/Models/Caballero/Texture/Diffuse.png");
+	Model* knight = new Model("Knight", "D:/Desktop/1.vbo", "D:/Desktop/Models/Caballero/Texture/Diffuse.png");
 	models.push_back(knight);
 
 	//knight->print();
