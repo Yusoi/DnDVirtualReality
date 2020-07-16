@@ -10,14 +10,8 @@ add_executable(DnDVirtualReality "DnDVirtualReality.cpp" "DnDVirtualReality.h"
 		                         "Engine.cpp" "Engine.h"
 								 "Model.cpp" "Model.h"
 								 "Light.cpp" "Light.h"
-								 "Texture.cpp" "Texture.h"
 								 "Camera.cpp" "Camera.h"
 								 "Actor.cpp" "Actor.h"
-								 "Face.cpp" "Face.h"
-								 )
-
-
-# TODO: Add tests and install targets if needed.
-#add_subdirectory("Models/")
-#add_subdirectory("Shaders/")
-#add_subdirectory("Textures/")
+								 "tinyxml2.cpp" "tinyxml2.h"
+								 "Tile.cpp" "Tile.h"   
+								 "PackageReader.cpp" "PackageReader.h" "ImageInterpreter.cpp" "ImageInterpreter.h")

@@ -4,16 +4,22 @@ Camera::Camera() {
 	this->cameraPos = vec3(0.0f, 0.0f, 3.0f);
 	this->cameraTarget = vec3(0.0f, 0.0f, 0.0f);
 	this->up = vec3(0.0f, 1.0f, 0.0f);
-	this->xzangle = 0.0f;
-	this->yangle = 0.0f;
+	vec3 frontVec = cameraTarget - cameraPos;
+	this->yaw = -45.0f;
+	this->pitch = 0.0f;
+	this->lastx = 400;
+	this->lasty = 400;
 }
 
 Camera::Camera(vec3 cameraPos, vec3 cameraTarget, vec3 up) {
 	this->cameraPos = cameraPos;
 	this->cameraTarget = cameraTarget;
-	this->up = up;
-	this->xzangle = 0.0f;
-	this->yangle = 0.0f;
+	this->up = vec3(0.0f, 1.0f, 0.0f);
+	vec3 frontVec = cameraTarget - cameraPos;
+	this->yaw = -90.0f;
+	this->pitch = 0.0f;
+	this->lastx = 400;
+	this->lasty = 400;
 }
 
 vec3 Camera::getCameraPos() {
@@ -40,20 +46,36 @@ void Camera::setUpVector(vec3 up) {
 	this->up = up;
 }
 
-float Camera::getXZAngle() {
-	return xzangle;
+float Camera::getYaw() {
+	return yaw;
 }
 
-void Camera::setXZAngle(float xzangle) {
-	this->xzangle = xzangle;
+void Camera::setYaw(int yaw) {
+	this->yaw = yaw;
 }
 
-float Camera::getYAngle() {
-	return yangle;
+float Camera::getPitch() {
+	return pitch;
 }
 
-void Camera::setYAngle(float yangle) {
-	this->yangle = yangle;
+void Camera::setPitch(float pitch) {
+	this->pitch = pitch;
+}
+
+int Camera::getLastX() {
+	return lastx;
+}
+
+void Camera::setLastX(int lastx) {
+	this->lastx = lastx;
+}
+
+int Camera::getLastY() {
+	return lasty;
+}
+
+void Camera::setLastY(int lasty) {
+	this->lasty = lasty;
 }
 
 void Camera::lookAt() {

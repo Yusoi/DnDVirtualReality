@@ -1,9 +1,22 @@
 #include "Actor.h"
 
-Actor::Actor() {
+Actor::Actor(Model* model, string actor_id, string actor_name) {
+	this->model = model;
+	this->actor_id = actor_id;
+	this->actor_name = actor_name;
+}
 
+Model* Actor::getModel() {
+	return model;
+}
+
+void Actor::setPos(pair<int, int> pos) {
+	this->pos = pos;
 }
 
 void Actor::draw() {
-
+	glPushMatrix();
+		glTranslatef(float(pos.first), 0.0f, float(pos.second));
+		model->drawVAO();
+	glPopMatrix();
 }

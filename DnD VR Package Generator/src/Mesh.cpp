@@ -50,8 +50,6 @@ Mesh::Mesh() {
 Vertex* Mesh::add_vertex(Vertex vertex) {
 	ostringstream oss;
 	vec3 coords = vertex.getCoords();
-	oss << coords.x << ":" << coords.y << ":" << coords.z;
-	//cout << "Add vertex: " << oss.str() << endl;
 
 	return &mesh.insert(pair<string,Vertex>(oss.str(), vertex))->second;
 }
@@ -59,8 +57,6 @@ Vertex* Mesh::add_vertex(Vertex vertex) {
 Vertex* Mesh::get_vertex(Vertex vertex) {
 	ostringstream oss;
 	vec3 coords = vertex.getCoords();
-	oss << coords.x << ":" << coords.y << ":" << coords.z;
-	//cout << "Get vertex: " << oss.str() << endl;
 
 	pair<unordered_multimap<string, Vertex>::iterator,unordered_multimap<string, Vertex>::iterator> equal_map
 		= mesh.equal_range(oss.str());

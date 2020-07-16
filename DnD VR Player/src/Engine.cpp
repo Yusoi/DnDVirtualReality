@@ -13,25 +13,19 @@ Engine* Engine::getInstance() {
 }
 
 void Engine::renderScene(void) {
+	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glLoadIdentity();
 	camera->lookAt();
 
-	//Plane
-	glColor3f(0.2f, 0.2f, 0.2f);
-	glBegin(GL_QUADS);
-	glVertex3f(200.0f, 0.0f, 200.0f);
-	glVertex3f(200.0f, 0.0f, -200.0f);
-	glVertex3f(-200.0f, 0.0f, -200.0f);
-	glVertex3f(-200.0f, 0.0f, 200.0f);
-	glEnd();
+	for (vector<Tile*>::iterator it = tiles.begin(); it < tiles.end(); ++it) {
+		(*it)->draw();
+	}
 
-	glColor3f(0.5f, 0.0f, 0.0f);
-
-	//Draw models
-	for (vector<Model*>::iterator it = models.begin(); it < models.end(); ++it) {
-		(*it)->drawVAO();
+	//TODO: Draw Actors (Não é suposto serem drawn assim)
+	for (vector<Actor*>::iterator it = actors.begin(); it < actors.end(); ++it) {
+		(*it)->getModel()->drawVAO();
 	}
 
 	glutSwapBuffers();
@@ -74,17 +68,14 @@ void Engine::processNormalKeys(unsigned char key, int x, int y) {
 	vec3 cameraPos = camera->getCameraPos();
 	vec3 cameraTarget = camera->getCameraTarget();
 
-	float xzangle = camera->getXZAngle();
-	float yangle = camera->getYAngle();
-
 	vec3 toTarget = cameraPos - cameraTarget;
 	float distanceToCenterXZ = sqrt(pow(cameraPos.x, 2) + pow(cameraPos.z, 2));
 	float distanceToCenter = distance(toTarget, vec3(0.0f, 0.0f, 0.0f));
 
 	vec3 cameraFront = normalize(camera->getCameraTarget() - camera->getCameraPos());
-	vec3 cameraRight = normalize(cross(camera->getUpVector(), camera->getCameraPos()));
+	vec3 cameraRight = normalize(cross(cameraFront,camera->getUpVector()));
 
-	float fraction = 0.1f;
+	float fraction = 0.5f;
 
 	switch (key) {
 	case 'w':
@@ -120,7 +111,70 @@ void Engine::processNormalKeys(unsigned char key, int x, int y) {
 			cameraTarget.z + cameraRight.z * fraction));
 		break;
 	}
+}
 
+void Engine::mouseButton(int button, int state, int x, int y) {
+	// only start motion if the left button is pressed
+	if (button == GLUT_LEFT_BUTTON) {
+
+		// when the button is released
+		if (state == GLUT_UP) {
+
+		}
+		else {// state = GLUT_DOWN
+			camera->setLastX(x);
+			camera->setLastY(y);
+		}
+	}
+}
+
+void Engine::mouseButtonWrapper(int button, int state, int x, int y) {
+	Engine* e = Engine::getInstance();
+	e->mouseButton(button, state, x, y);
+}
+
+void Engine::mouseMove(int x, int y) {
+
+	int lastx = camera->getLastX();
+	int lasty = camera->getLastY();
+
+	float yaw = camera->getYaw();
+	float pitch = camera->getPitch();
+
+	float xoffset = float(x - lastx);
+	float yoffset = float(lasty - y);
+
+	camera->setLastX(x);
+	camera->setLastY(y);
+
+	float sensitivity = 1.0f;
+
+	xoffset *= sensitivity;
+	yoffset *= sensitivity;
+
+	yaw += xoffset;
+	pitch += yoffset;
+
+	if (pitch > 89.0f) {
+		pitch = 89.0f;
+	}
+	if (pitch < -89.0f) {
+		pitch = -89.0f;
+	}
+
+	vec3 direction;
+	direction.x = cos(radians(yaw)) * cos(radians(pitch));
+	direction.y = sin(radians(pitch));
+	direction.z = sin(radians(yaw)) * cos(radians(pitch));
+
+	camera->setYaw(yaw);
+	camera->setPitch(pitch);
+	camera->setCameraTarget(camera->getCameraPos()+normalize(direction));
+}
+
+void Engine::mouseMoveWrapper(int x, int y) {
+	Engine* e = Engine::getInstance();
+	e->mouseMove(x,y);
 }
 
 void Engine::processNormalKeysWrapper(unsigned char key, int x, int y) {
@@ -138,7 +192,7 @@ void Engine::processSpecialkeysWrapper(int key, int x, int y) {
 }
 
 void Engine::addModel(Model* model) {
-	this->models.push_back(model);
+	this->models.insert({ model->getName() , model });
 }
 
 void Engine::addPresetLight(PresetLight* presetLight) {
@@ -149,19 +203,57 @@ void Engine::addCustomLight(CustomLight* customLight) {
 	this->customLights.push_back(customLight);
 }
 
-void Engine::loadModels() {
-	Model* knight = new Model("Knight", "D:/Desktop/1.vbo", "D:/Desktop/Models/Caballero/Texture/Diffuse.png");
-	models.push_back(knight);
+void Engine::setPackageFile(string packagefile_path) {
+	this->packagefile_path = packagefile_path;
+}
 
-	//knight->print();
+void Engine::loadModels() {
+	Model* floor = new Model("Floor", "C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/floor.vbo", "C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/Textures/Floor.jpg");
+	Model* north_wall = new Model("North Wall", "C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/north_wall.vbo", "C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/Textures/Wall.png");
+	Model* south_wall = new Model("South Wall", "C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/south_wall.vbo", "C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/Textures/Wall.png");
+	Model* east_wall = new Model("East Wall", "C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/east_wall.vbo", "C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/Textures/Wall.png");
+	Model* west_wall = new Model("West Wall", "C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/west_wall.vbo", "C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/Textures/Wall.png");
+
+	tile_models.insert({ "Floor",floor });
+	tile_models.insert({ "North Wall",north_wall });
+	tile_models.insert({ "South Wall",south_wall });
+	tile_models.insert({ "East Wall",east_wall });
+	tile_models.insert({ "West Wall",west_wall });
+
+	PackageReader* pr = new PackageReader(packagefile_path);
+	pr->loadPackage(&models, &actors, &tiles);
+
+	//4 bit code in which each bit represents the positions of the walls on the tile
+	// 0000 - Tile without walls
+	// 0001 - Tile with north wall
+	// 0010 - Tile with south wall
+	// 0100 - Tile with east wall
+	// 1000 - Tile with west wall
+	for (vector<Tile*>::iterator it = tiles.begin(); it != tiles.end(); it++) {
+		(*it)->addModel(floor);
+		int code = (*it)->getCode();
+		if ((code & 1) == 1) (*it)->addModel(north_wall);
+		if ((code & 2) == 2) (*it)->addModel(south_wall);
+		if ((code & 4) == 4) (*it)->addModel(east_wall);
+		if ((code & 8) == 8) (*it)->addModel(west_wall);
+	}
+
+	//models.push_back(floor);
+	//models.push_back(north_wall);
+	//models.push_back(south_wall);
+	//models.push_back(east_wall);
+	//models.push_back(west_wall);
+
+	//Model* knight = new Model("Knight", "D:/Desktop/1.vbo", "D:/Desktop/Models/Caballero/Texture/Diffuse.png");
+	//models.push_back(knight);
 }
 
 void Engine::run(int argc, char *argv[]) {
 	//Init GLUT and create window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-	glutInitWindowSize(512, 512);
-	glutInitWindowPosition(100, 100);
+	glutInitWindowSize(1000,1000);
+	glutInitWindowPosition(0,0);
 	glutCreateWindow("DnD VR");
 	//TODO read the generated file and upload it to the scene.
 
@@ -177,12 +269,15 @@ void Engine::run(int argc, char *argv[]) {
 
 	loadModels();
 
+	gluPerspective(90.0f,1,0.0001f,500.0f);
+
 	//OpenGL init
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_CULL_FACE);
 
 	//Register callbacks
 	glutDisplayFunc(renderSceneWrapper);
@@ -192,8 +287,9 @@ void Engine::run(int argc, char *argv[]) {
 	glutKeyboardFunc(processNormalKeysWrapper);
 	glutSpecialFunc(processSpecialkeysWrapper);
 
+	glutMouseFunc(mouseButtonWrapper);
+	glutMotionFunc(mouseMoveWrapper);
 	
-
 	//enter GLUT event processing
 	glutMainLoop();
 }

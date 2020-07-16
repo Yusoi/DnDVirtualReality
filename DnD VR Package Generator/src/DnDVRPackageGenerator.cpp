@@ -2,18 +2,13 @@
 
 int main(int argc, char* argv[]) {
 	
-	//Abrir menu
-
-	
+	//TODO:Abrir menu
 
 	//Conjunto de funções para dar load a um modelo, transformá-lo num formato útil e exportá-lo.
 	ObjToVbo exporter;
-	exporter.import_obj_file("D:/Desktop/Models/Caballero/obj/Caballero.obj");
+	exporter.import_obj_file("D:/Desktop/back_wall.obj");
 	exporter.load_mesh();
-	exporter.export_vbo_file("D:/Desktop/1.vbo");
-	
-	
-
+	exporter.export_vbo_file("C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/back_wall.vbo");
 
 	return 0;
 }

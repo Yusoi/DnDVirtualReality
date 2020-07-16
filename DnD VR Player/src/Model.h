@@ -13,8 +13,6 @@
 #include <sstream>
 #include <iostream>
 
-#include "Face.h"
-
 using namespace std;
 using namespace glm;
 
@@ -32,10 +30,6 @@ class Model {
 		float* positions_array, * textures_array, * normals_array;
 		int* indexes_array;
 
-		//vector<vec3> positions;
-		//vector<vec3> normals;
-		//vector<vec2> textureCoords;
-		//vector<Face*> faces;
 	public:
 		Model(char *name, char *obj_path, char *tex_path);
 		void load_model(char* obj_path);
@@ -44,4 +38,5 @@ class Model {
 		void drawVAO();
 		void draw();
 		void print();
+		string getName();
 };

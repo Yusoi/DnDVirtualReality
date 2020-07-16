@@ -5,15 +5,18 @@
 #include "GL/glew.h"
 #include "GL/freeglut.h"
 #include "IL/il.h"
+#include "glm/glm.hpp"
 
 #include "Camera.h"
 #include "Model.h"
 #include "Light.h"
-#include "Texture.h"
 #include "Actor.h"
+#include "Tile.h"
+#include "PackageReader.h"
 
 #include <filesystem>
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -22,8 +25,12 @@ class Engine {
 		static Engine* engine;
 		Camera* camera;
 
-		vector<Model*> models;
+		string packagefile_path;
+
+		map<string,Model*> models;
 		vector<Actor*> actors;
+		vector<Tile*> tiles;
+		map<string,Model*> tile_models;
 		vector<PresetLight*> presetLights;
 		vector<CustomLight*> customLights;
 
@@ -38,9 +45,17 @@ class Engine {
 		static void processNormalKeysWrapper(unsigned char key, int x, int y);
 		void processSpecialKeys(int key, int x, int y);
 		static void processSpecialkeysWrapper(int key, int x, int y);
+		void mouseButton(int button, int state, int x, int y);
+		static void mouseButtonWrapper(int button, int state, int x, int y);
+		void mouseMove(int x, int y);
+		static void mouseMoveWrapper(int x, int y);
+		
+		
+
 		void addModel(Model* model);
 		void addPresetLight(PresetLight* presetLight);
 		void addCustomLight(CustomLight* customLight);
+		void setPackageFile(string packagefile_path);
 		void loadModels();
 		void run(int argc, char* argv[]);
 };
