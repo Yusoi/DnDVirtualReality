@@ -248,6 +248,14 @@ void Engine::loadModels() {
 	//models.push_back(knight);
 }
 
+static void runQRCodeDetection(vector<Actor*>* actors) {
+	ImageInterpreter ii;
+	for (;;) {
+		this_thread::sleep_for(chrono::seconds(1));
+		ii.updateActors(actors);
+	}
+}
+
 void Engine::run(int argc, char *argv[]) {
 	//Init GLUT and create window
 	glutInit(&argc, argv);
@@ -268,6 +276,8 @@ void Engine::run(int argc, char *argv[]) {
 	ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
 
 	loadModels();
+	
+	thread cameraThread = thread(&runQRCodeDetection,&actors);
 
 	gluPerspective(90.0f,1,0.0001f,500.0f);
 
@@ -292,5 +302,7 @@ void Engine::run(int argc, char *argv[]) {
 	
 	//enter GLUT event processing
 	glutMainLoop();
+
+	cout << "Window out!" << endl;
 }
 

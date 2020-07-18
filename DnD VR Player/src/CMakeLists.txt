@@ -14,4 +14,5 @@ add_executable(DnDVirtualReality "DnDVirtualReality.cpp" "DnDVirtualReality.h"
 								 "Actor.cpp" "Actor.h"
 								 "tinyxml2.cpp" "tinyxml2.h"
 								 "Tile.cpp" "Tile.h"   
-								 "PackageReader.cpp" "PackageReader.h" "ImageInterpreter.cpp" "ImageInterpreter.h")
+								 "PackageReader.cpp" "PackageReader.h" 
+								 "ImageInterpreter.cpp" "ImageInterpreter.h")

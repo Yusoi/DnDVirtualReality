@@ -32,10 +32,13 @@ endif(NOT OPENGL_FOUND)
 
 find_package(DevIL REQUIRED)
 link_libraries(${IL_LIBRARIES})
-include_directories(§{IL_INCLUDE_DIR})
+include_directories(${IL_INCLUDE_DIR})
 if(NOT DevIL_FOUND)
   message(ERROR " Devil not found!")
 endif(NOT DevIL_FOUND)
+
+link_libraries("D:/opencv/build/x64/vc15/lib/opencv_world440d.lib")
+include_directories("D:/opencv/build/include")
 
 # Include sub-projects.
 add_subdirectory ("src")

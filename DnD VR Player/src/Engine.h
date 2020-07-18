@@ -13,10 +13,13 @@
 #include "Actor.h"
 #include "Tile.h"
 #include "PackageReader.h"
+#include "ImageInterpreter.h"
 
 #include <filesystem>
 #include <vector>
 #include <map>
+#include <thread>
+#include <chrono>
 
 using namespace std;
 
