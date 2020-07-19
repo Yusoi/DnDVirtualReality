@@ -4,4 +4,4 @@
 
 1 - Setting up shaders
 
-2 - Fixing actor diappearance after 5 seconds
+2 - Fixing actor disappearance after 5 seconds
