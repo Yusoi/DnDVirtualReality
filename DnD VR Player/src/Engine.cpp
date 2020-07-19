@@ -2,6 +2,7 @@
 
 Engine::Engine() {
 	camera = new Camera(vec3(0.0f, 1.0f, 2.0f), vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+	boardsize = { 0,0 };
 }
 
 
@@ -24,8 +25,8 @@ void Engine::renderScene(void) {
 	}
 
 	//TODO: Draw Actors (Não é suposto serem drawn assim)
-	for (vector<Actor*>::iterator it = actors.begin(); it < actors.end(); ++it) {
-		(*it)->getModel()->drawVAO();
+	for (map<string,Actor*>::iterator it = actors.begin(); it != actors.end(); ++it) {
+		(*it).second->getModel()->drawVAO();
 	}
 
 	glutSwapBuffers();
@@ -221,7 +222,7 @@ void Engine::loadModels() {
 	tile_models.insert({ "West Wall",west_wall });
 
 	PackageReader* pr = new PackageReader(packagefile_path);
-	pr->loadPackage(&models, &actors, &tiles);
+	boardsize = pr->loadPackage(&models, &actors, &tiles);
 
 	//4 bit code in which each bit represents the positions of the walls on the tile
 	// 0000 - Tile without walls
@@ -237,19 +238,10 @@ void Engine::loadModels() {
 		if ((code & 4) == 4) (*it)->addModel(east_wall);
 		if ((code & 8) == 8) (*it)->addModel(west_wall);
 	}
-
-	//models.push_back(floor);
-	//models.push_back(north_wall);
-	//models.push_back(south_wall);
-	//models.push_back(east_wall);
-	//models.push_back(west_wall);
-
-	//Model* knight = new Model("Knight", "D:/Desktop/1.vbo", "D:/Desktop/Models/Caballero/Texture/Diffuse.png");
-	//models.push_back(knight);
 }
 
-static void runQRCodeDetection(vector<Actor*>* actors) {
-	ImageInterpreter ii;
+static void runQRCodeDetection(map<string,Actor*>* actors, pair<int,int> boardsize) {
+	ImageInterpreter ii(boardsize);
 	for (;;) {
 		this_thread::sleep_for(chrono::seconds(1));
 		ii.updateActors(actors);
@@ -277,7 +269,7 @@ void Engine::run(int argc, char *argv[]) {
 
 	loadModels();
 	
-	thread cameraThread = thread(&runQRCodeDetection,&actors);
+	thread cameraThread = thread(&runQRCodeDetection,&actors, boardsize);
 
 	gluPerspective(90.0f,1,0.0001f,500.0f);
 

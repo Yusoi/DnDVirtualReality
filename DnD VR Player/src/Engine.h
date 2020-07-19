@@ -31,11 +31,12 @@ class Engine {
 		string packagefile_path;
 
 		map<string,Model*> models;
-		vector<Actor*> actors;
+		map<string,Actor*> actors;
 		vector<Tile*> tiles;
 		map<string,Model*> tile_models;
 		vector<PresetLight*> presetLights;
 		vector<CustomLight*> customLights;
+		pair<int, int> boardsize;
 
 		Engine();
 	public:

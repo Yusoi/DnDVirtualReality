@@ -15,8 +15,18 @@ void Actor::setPos(pair<int, int> pos) {
 }
 
 void Actor::draw() {
-	glPushMatrix();
-		glTranslatef(float(pos.first), 0.0f, float(pos.second));
-		model->drawVAO();
-	glPopMatrix();
+	if (inactive_counter > INACTIVE_THRESHOLD) {
+		glPushMatrix();
+			glTranslatef(float(pos.first), 0.0f, float(pos.second));
+			model->drawVAO();
+		glPopMatrix();
+	}
+}
+
+void Actor::incrementInactiveCounter() {
+	inactive_counter++;
+}
+
+void Actor::resetInactiveCounter() {
+	inactive_counter = 0;
 }

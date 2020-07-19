@@ -6,6 +6,7 @@
 #include "opencv2/highgui.hpp"
 #include <iostream>
 #include <stdio.h>
+#include <map>
 
 #include "Actor.h"
 
@@ -15,9 +16,10 @@ using namespace cv;
 class ImageInterpreter {
 private:
 	VideoCapture cap;
+	pair<int, int> boardsize;
 public:
-	ImageInterpreter();
+	ImageInterpreter(pair<int,int> boardsize);
 	Mat retrieveImage();
 	void qrCodeDetector(vector<string> *decodedInfo, vector<Point> *corners);
-	void updateActors(vector<Actor*>* actors);
+	void updateActors(map<string,Actor*>* actors);
 };

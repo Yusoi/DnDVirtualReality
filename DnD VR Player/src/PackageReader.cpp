@@ -4,9 +4,8 @@ regex t("[a-zA-Z0-9]*:");
 
 PackageReader::PackageReader(string packagefile_path) {
 	this->packagefile_path = packagefile_path;
+	this->boardsize = { 0,0 };
 }
-
-
 
 vector<Tile*> PackageReader::loadBoardFile(string boardfile_path) {
 	string line;
@@ -20,6 +19,7 @@ vector<Tile*> PackageReader::loadBoardFile(string boardfile_path) {
 
 	if (file.is_open()) {
 		while(getline(file,line)) {
+			i = 0;
 			for (sregex_token_iterator it(line.begin(), line.end(), t); it != end; it++) {
 				string cur = (*it).str();
 				cur.pop_back();
@@ -30,15 +30,16 @@ vector<Tile*> PackageReader::loadBoardFile(string boardfile_path) {
 				i++;
 			}
 			j++;
-			i = 0;
 		}
 	}
+
+	boardsize = { i,j };
 
 	return tiles;
 }
 
 //TODO: Read XML
-void PackageReader::loadPackage(map<string,Model*>* models, vector<Actor*>* actors, vector<Tile*>* tiles) {
+pair<int,int> PackageReader::loadPackage(map<string,Model*>* models, map<string, Actor*>* actors, vector<Tile*>* tiles) {
 	XMLDocument doc;
 	doc.LoadFile(packagefile_path.c_str());
 
@@ -80,7 +81,7 @@ void PackageReader::loadPackage(map<string,Model*>* models, vector<Actor*>* acto
 
 		Actor* cur_actor = new Actor(models->at(actor_model_id), actor_id, actor_name);
 
-		actors->push_back(cur_actor);
+		actors->insert({ actor_id,cur_actor });
 	}
 
 	XMLElement* boardFileElement = boardElement->FirstChildElement("boardFile");
@@ -88,6 +89,8 @@ void PackageReader::loadPackage(map<string,Model*>* models, vector<Actor*>* acto
 	//Fill Tile Vector
 	const char* boardFilePath = boardFileElement->Attribute("path");
 	*tiles = loadBoardFile(boardFilePath);
+
+	return boardsize;
 }
 
 
