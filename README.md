@@ -2,6 +2,6 @@
  
 ##Todo List:
 
-1 - Loading Textures
-2 - Transforming Obj file into Vbo file to improve loading performance
-3 - Setting up shaders
+1 - Setting up shaders
+
+2 - Fixing actor diappearance after 5 seconds
