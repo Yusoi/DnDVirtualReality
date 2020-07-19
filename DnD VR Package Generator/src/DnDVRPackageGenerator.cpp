@@ -3,6 +3,9 @@
 int main(int argc, char* argv[]) {
 	
 	//TODO:Abrir menu
+	MyApp app;
+
+	app.Initialize();
 
 	//Conjunto de funções para dar load a um modelo, transformá-lo num formato útil e exportá-lo.
 	ObjToVbo exporter;
