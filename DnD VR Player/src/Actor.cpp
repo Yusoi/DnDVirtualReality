@@ -4,6 +4,7 @@ Actor::Actor(Model* model, string actor_id, string actor_name) {
 	this->model = model;
 	this->actor_id = actor_id;
 	this->actor_name = actor_name;
+	this->inactive_counter = INACTIVE_THRESHOLD;
 }
 
 Model* Actor::getModel() {
@@ -15,7 +16,7 @@ void Actor::setPos(pair<int, int> pos) {
 }
 
 void Actor::draw() {
-	if (inactive_counter > INACTIVE_THRESHOLD) {
+	if (inactive_counter < INACTIVE_THRESHOLD) {
 		glPushMatrix();
 			glTranslatef(float(pos.first), 0.0f, float(pos.second));
 			model->drawVAO();
@@ -24,6 +25,7 @@ void Actor::draw() {
 }
 
 void Actor::incrementInactiveCounter() {
+	printf("Incremented!\n");
 	inactive_counter++;
 }
 

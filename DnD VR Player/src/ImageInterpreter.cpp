@@ -36,6 +36,8 @@ void ImageInterpreter::updateActors(map<string,Actor*>* actors) {
 	qrCodeDetector(&decodedInfo, &corners);
 
 	Point sw_bound, ne_bound;
+	sw_bound = { 0,0 };
+	ne_bound = { 0,0 };
 	pair<int, int> actor_pos;
 	int count = 0;
 
@@ -66,17 +68,19 @@ void ImageInterpreter::updateActors(map<string,Actor*>* actors) {
 	int square_x = board_x / boardsize.first;
 	int square_y = board_y / boardsize.second;
 
-	for (map<string, Actor*>::iterator it = actors->begin(); it != actors->end(); it++) {
-		if (actor_centers.count((*it).first)) {
-			pair<int, int> actor_center = actor_centers.at((*it).first);
+	if (board_x != 0 && board_y != 0) {
+		for (map<string, Actor*>::iterator it = actors->begin(); it != actors->end(); it++) {
+			if (actor_centers.count((*it).first)) {
+				pair<int, int> actor_center = actor_centers.at((*it).first);
 
-			(*it).second->setPos({ (actor_center.first - board_x) / square_x,
-								   (actor_center.second - board_y) / square_y });
+				(*it).second->setPos({ (actor_center.first - board_x) / square_x,
+									   (actor_center.second - board_y) / square_y });
 
-			(*it).second->resetInactiveCounter();
-		}
-		else {
-			(*it).second->incrementInactiveCounter();
+				(*it).second->resetInactiveCounter();
+			}
+			else {
+				(*it).second->incrementInactiveCounter();
+			}
 		}
 	}
 }

@@ -25,9 +25,15 @@ void Engine::renderScene(void) {
 	}
 
 	//TODO: Draw Actors (Não é suposto serem drawn assim)
-	for (map<string,Actor*>::iterator it = actors.begin(); it != actors.end(); ++it) {
+
+	for (map<string, Actor*>::iterator it = actors.begin(); it != actors.end(); ++it) {
 		(*it).second->getModel()->drawVAO();
 	}
+	/*
+	for (map<string,Actor*>::iterator it = actors.begin(); it != actors.end(); ++it) {
+		(*it).second->draw();
+	}
+	*/
 
 	glutSwapBuffers();
 }
