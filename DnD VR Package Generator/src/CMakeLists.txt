@@ -4,10 +4,12 @@
 cmake_minimum_required (VERSION 3.8)
 
 include_directories("glm/")
+include_directories("wxwidgets/")
 
 # Add source to this project's executable.
 add_executable(DnDVirtualReality "ObjToVbo.cpp" "ObjToVbo.h"
 								  "Mesh.cpp" "Mesh.h" 
+								  "app.cpp" "app.h"
 								  "Face.cpp" "Face.h" "DnDVRPackageGenerator.cpp" "DnDVRPackageGenerator.h")
 
 

@@ -1,8 +1,0 @@
-# ninja log v5
-6	1690	616078052	src/CMakeFiles/DnDVirtualReality.dir/Face.cpp.obj	3e56ac3c483ee331
-1	1544	616451375	src/CMakeFiles/DnDVirtualReality.dir/ObjToVbo.cpp.obj	b66c7e84dc1d03eb
-1342	1591	616452412	src/DnDVirtualReality.exe	64b546503320668f
-1	1197	616099085	src/CMakeFiles/DnDVirtualReality.dir/Mesh.cpp.obj	ee8900138a3bd8f
-2	1341	616452411	src/CMakeFiles/DnDVirtualReality.dir/DnDVRPackageGenerator.cpp.obj	c3fb03451918757d
-1	1216	616452423	src/CMakeFiles/DnDVirtualReality.dir/DnDVRPackageGenerator.cpp.obj	c3fb03451918757d
-1216	1413	616452423	src/DnDVirtualReality.exe	64b546503320668f

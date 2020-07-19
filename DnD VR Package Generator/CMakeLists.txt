@@ -37,6 +37,11 @@ if(NOT DevIL_FOUND)
   message(ERROR " Devil not found!")
 endif(NOT DevIL_FOUND)
 
+find_package(wxWidgets REQUIRED COMPONENTS net core base)
+include(${wxWidgets_USE_FILE})
+link_libraries(${wxWidgets_LIBRARIES})
+include_directories(${wxWidgets_INCLUDE_DIRS})
+
 # Include sub-projects.
 add_subdirectory ("src")
 
