@@ -15,8 +15,9 @@ using namespace tinyxml2;
 class PackageReader {
 private:
 	string packagefile_path;
+	pair<int, int> boardsize;
 public:
 	PackageReader(string packagefile_path);
 	vector<Tile*> loadBoardFile(string boardfile_path);
-	void loadPackage(map<string,Model*>* models, vector<Actor*>* actors, vector<Tile*>* tiles);
+	pair<int,int> loadPackage(map<string,Model*>* models, map<string, Actor*>* actors, vector<Tile*>* tiles);
 };
