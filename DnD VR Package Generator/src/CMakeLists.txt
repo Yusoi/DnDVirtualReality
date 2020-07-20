@@ -12,6 +12,7 @@ add_executable(DnDVirtualReality "ObjToVbo.cpp" "ObjToVbo.h"
 								  "Mesh.cpp" "Mesh.h" 
 								  "app.cpp" "app.h"
 								  "Exporter.cpp" "Exporter.h"
+								  "tinyxml2.cpp" "tinyxml2.h"
 								  "Face.cpp" "Face.h" "DnDVRPackageGenerator.cpp" "DnDVRPackageGenerator.h")
 
 

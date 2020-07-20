@@ -1,5 +1,48 @@
 #include "Exporter.h"
 
+// For testing purposes
+Exporter::Exporter() {
+
+	// Setup board
+	Board board;
+	board.setSize(vec2(4, 4));
+	vector<vector<int>> v(4, vector<int>(4));
+	srand(time(NULL));
+
+	for (int i = 0; i < 4; i++) {
+		for(int ii = 0; ii < 4; ii++){
+			v[i][ii] = rand() % 9;
+		}
+	}
+
+	board.setBoard(v);
+	board.setName("Example Board");
+	board.setTheme("Gothic");
+
+	// Setup Models
+	Model model;
+	model.setMPath("Example MPath");
+	model.setTPath("Example TPath");
+
+	//Setup Actors
+	Actor actor;
+	actor.setID(1);
+	actor.setName("Example Name");
+
+	vector<Model> m;
+	m.push_back(model);
+
+	vector<Actor> a;
+	a.push_back(actor);
+
+	Game game;
+	game.setActors(a);
+	game.setModels(m);
+	game.setBoard(board);
+
+	games.push_back(game);
+}
+
 void Game::exportBoard(string path) {
 	ofstream board_file;
 	board_file.open(path + "/" + board.getName() + ".brd");
@@ -30,7 +73,6 @@ void Game::createXML(string path) {
 	XMLElement* xgame = doc.NewElement("board");
 	xgame->SetAttribute("name", name.c_str());
 	xgame->SetAttribute("theme", theme.c_str());
-	doc.InsertFirstChild(xgame);
 
 	//Models
 
@@ -78,8 +120,8 @@ void Game::createXML(string path) {
 	xgame->InsertEndChild(boardFile);
 
 	// Save the File
-
-	doc.SaveFile((path + board.getName() + "xml").c_str());
+	doc.InsertFirstChild(xgame);
+	doc.SaveFile((path + "/" + board.getName() + ".xml").c_str());
 }
 
 void Exporter::port(string path) {
