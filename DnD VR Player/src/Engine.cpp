@@ -1,7 +1,7 @@
 #include "Engine.h"
 
 Engine::Engine() {
-	camera = new Camera(vec3(0.0f, 1.0f, 2.0f), vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+	camera = new Camera(vec3(-5.0f,5.0f,-5.0f), vec3(5.0f,0.0f,5.0f), vec3(0.0f, 1.0f, 0.0f));
 	boardsize = { 0,0 };
 }
 
@@ -29,6 +29,9 @@ void Engine::renderScene(void) {
 	for (map<string, Actor*>::iterator it = actors.begin(); it != actors.end(); ++it) {
 		(*it).second->getModel()->drawVAO();
 	}
+
+	//Maneira correta de desenhar os atores 
+
 	/*
 	for (map<string,Actor*>::iterator it = actors.begin(); it != actors.end(); ++it) {
 		(*it).second->draw();
@@ -246,6 +249,13 @@ void Engine::loadModels() {
 	}
 }
 
+void Engine::loadShaders() {
+	shader = new Shader("C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/Shaders/shader.vert",
+						"C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/Shaders/shader.frag");
+
+	glUseProgram(shader->getProgramId());
+}
+
 static void runQRCodeDetection(map<string,Actor*>* actors, pair<int,int> boardsize) {
 	ImageInterpreter ii(boardsize);
 	for (;;) {
@@ -274,6 +284,7 @@ void Engine::run(int argc, char *argv[]) {
 	ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
 
 	loadModels();
+	loadShaders();
 	
 	thread cameraThread = thread(&runQRCodeDetection,&actors, boardsize);
 

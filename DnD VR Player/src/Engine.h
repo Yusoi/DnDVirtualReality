@@ -12,6 +12,7 @@
 #include "Light.h"
 #include "Actor.h"
 #include "Tile.h"
+#include "Shader.h"
 #include "PackageReader.h"
 #include "ImageInterpreter.h"
 
@@ -27,6 +28,7 @@ class Engine {
 	private:
 		static Engine* engine;
 		Camera* camera;
+		Shader* shader;
 
 		string packagefile_path;
 
@@ -61,6 +63,9 @@ class Engine {
 		void addCustomLight(CustomLight* customLight);
 		void setPackageFile(string packagefile_path);
 		void loadModels();
+
+		void loadShaders();
+
 		void run(int argc, char* argv[]);
 };
 

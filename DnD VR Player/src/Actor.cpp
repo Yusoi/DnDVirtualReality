@@ -25,7 +25,6 @@ void Actor::draw() {
 }
 
 void Actor::incrementInactiveCounter() {
-	printf("Incremented!\n");
 	inactive_counter++;
 }
 

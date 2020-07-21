@@ -104,21 +104,20 @@ void Model::prepare_vao() {
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_buffers[POS_VBO]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * buffer_size[POS_VBO], positions_array, GL_STATIC_DRAW);
-	//glEnableVertexAttribArray(0);
 	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	//glEnableVertexAttribArray(0);
 
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_buffers[TEX_VBO]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * buffer_size[TEX_VBO], textures_array, GL_STATIC_DRAW);
-	//glEnableVertexAttribArray(1);
 	//glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	//glEnableVertexAttribArray(1);
 
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_buffers[NOR_VBO]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * buffer_size[NOR_VBO], normals_array, GL_STATIC_DRAW);
-	//glEnableVertexAttribArray(2);
 	//glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
+	//glEnableVertexAttribArray(2);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffers[IND_VBO]);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int) * buffer_size[IND_VBO], indexes_array, GL_STATIC_DRAW);
@@ -169,7 +168,7 @@ void Model::load_texture(char* tex_path) {
 
 void Model::drawVAO() {
 	
-	 //glBindVertexArray(m_VAO);
+	//glBindVertexArray(m_VAO);
 	
 	glBindBuffer(GL_ARRAY_BUFFER, m_buffers[POS_VBO]);
 	glVertexPointer(3, GL_FLOAT, 0, 0);
