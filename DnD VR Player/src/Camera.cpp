@@ -5,10 +5,14 @@ Camera::Camera() {
 	this->cameraTarget = vec3(0.0f, 0.0f, 0.0f);
 	this->up = vec3(0.0f, 1.0f, 0.0f);
 	vec3 frontVec = cameraTarget - cameraPos;
-	this->yaw = -45.0f;
-	this->pitch = 0.0f;
+
+	this->yaw = atan2(frontVec.x, frontVec.z); 
+	this->pitch = atan2(frontVec.y, sqrt((frontVec.x * frontVec.x) 
+										+ (frontVec.z * frontVec.z)));
 	this->lastx = 400;
 	this->lasty = 400;
+
+	model = mat4(1.0f);
 }
 
 Camera::Camera(vec3 cameraPos, vec3 cameraTarget, vec3 up) {
@@ -16,10 +20,13 @@ Camera::Camera(vec3 cameraPos, vec3 cameraTarget, vec3 up) {
 	this->cameraTarget = cameraTarget;
 	this->up = vec3(0.0f, 1.0f, 0.0f);
 	vec3 frontVec = cameraTarget - cameraPos;
-	this->yaw = -90.0f;
-	this->pitch = 0.0f;
+	this->yaw = atan2(frontVec.x, frontVec.z);
+	this->pitch = atan2(frontVec.y, sqrt((frontVec.x * frontVec.x)
+		+ (frontVec.z * frontVec.z)));
 	this->lastx = 400;
 	this->lasty = 400;
+
+	model = mat4(1.0f);
 }
 
 vec3 Camera::getCameraPos() {
@@ -79,7 +86,12 @@ void Camera::setLastY(int lasty) {
 }
 
 void Camera::lookAt() {
+	//view = glm::lookAt(cameraPos, cameraTarget, up);
 	gluLookAt(cameraPos.x, cameraPos.y, cameraPos.z,
-			  cameraTarget.x, cameraTarget.y, cameraTarget.z,
-			  up.x, up.y, up.z);
+			 cameraTarget.x, cameraTarget.y, cameraTarget.z,
+			 up.x, up.y, up.z);
+}
+
+void Camera::perspective(float width, float height) {
+	projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
 }

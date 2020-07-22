@@ -6,6 +6,11 @@
 #include "GL/freeglut.h"
 #include "IL/il.h"
 #include "glm/glm.hpp"
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#include "Shader.h"
+
 #include <vector>
 #include <fstream>
 #include <string>
@@ -35,7 +40,7 @@ class Model {
 		void load_model(char* obj_path);
 		void load_texture(char* tex_path);
 		void prepare_vao();
-		void drawVAO();
+		void drawVAO(Shader* shader);
 		void draw();
 		void print();
 		string getName();

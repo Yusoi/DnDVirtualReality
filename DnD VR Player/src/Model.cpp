@@ -157,8 +157,8 @@ void Model::load_texture(char* tex_path) {
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex_w, tex_h, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData);
 
@@ -166,8 +166,10 @@ void Model::load_texture(char* tex_path) {
 
 }
 
-void Model::drawVAO() {
+void Model::drawVAO(Shader* shader) {
 	
+	GLuint p = shader->getProgramId();
+
 	//glBindVertexArray(m_VAO);
 	
 	glBindBuffer(GL_ARRAY_BUFFER, m_buffers[POS_VBO]);
@@ -178,8 +180,8 @@ void Model::drawVAO() {
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_buffers[TEX_VBO]);
 	glTexCoordPointer(2, GL_FLOAT, 0, 0);
-	glBindTexture(GL_TEXTURE_2D, tex_buffer);
 
+	glBindTexture(GL_TEXTURE_2D, tex_buffer);
 
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHTING);
@@ -187,6 +189,13 @@ void Model::drawVAO() {
 	glLightfv(GL_LIGHT0, GL_POSITION, position);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_buffers[IND_VBO]);
+
+	//glUseProgram(p);
+	//GLfloat viewmodel_mat[16], projection_mat[16];
+
+	//glGetFloatv(GL_MODELVIEW, viewmodel_mat);
+	//GLint viewModel = glGetUniformLocation(p, "m_viewModel");
+	//glUniformMatrix4fv(viewModel, 1, GL_FALSE, viewmodel_mat);
 
 	glDrawElements(GL_TRIANGLES, buffer_size[IND_VBO], GL_UNSIGNED_INT, (void*)0);
 

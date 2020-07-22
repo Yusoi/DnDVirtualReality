@@ -21,13 +21,13 @@ void Engine::renderScene(void) {
 	camera->lookAt();
 
 	for (vector<Tile*>::iterator it = tiles.begin(); it < tiles.end(); ++it) {
-		(*it)->draw();
+		(*it)->draw(shader);
 	}
 
 	//TODO: Draw Actors (Não é suposto serem drawn assim)
 
 	for (map<string, Actor*>::iterator it = actors.begin(); it != actors.end(); ++it) {
-		(*it).second->getModel()->drawVAO();
+		(*it).second->getModel()->drawVAO(shader);
 	}
 
 	//Maneira correta de desenhar os atores 
@@ -64,6 +64,7 @@ void Engine::reshapeWindow(int w, int h) {
 
 	// Set the correct perspective.
 	gluPerspective(45, ratio, 1, 1000);
+	//camera->perspective(w, h);
 
 	// Get Back to the Modelview
 	glMatrixMode(GL_MODELVIEW);
@@ -253,7 +254,7 @@ void Engine::loadShaders() {
 	shader = new Shader("C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/Shaders/shader.vert",
 						"C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/Shaders/shader.frag");
 
-	glUseProgram(shader->getProgramId());
+	//glUseProgram(shader->getProgramId());
 }
 
 static void runQRCodeDetection(map<string,Actor*>* actors, pair<int,int> boardsize) {
@@ -287,8 +288,7 @@ void Engine::run(int argc, char *argv[]) {
 	loadShaders();
 	
 	thread cameraThread = thread(&runQRCodeDetection,&actors, boardsize);
-
-	gluPerspective(90.0f,1,0.0001f,500.0f);
+	//gluPerspective(90.0f,1,0.0001f,500.0f);
 
 	//OpenGL init
 	glEnableClientState(GL_VERTEX_ARRAY);

@@ -5,7 +5,7 @@
 #include "GL/glut.h"
 #include "GL/freeglut.h"
 #include "glm/glm.hpp"
-
+#include "glm/gtc/matrix_transform.hpp"
 #include <iostream>
 
 using namespace glm;
@@ -19,10 +19,13 @@ private:
 	float pitch;
 	int lastx;
 	int lasty;
+
+	mat4 model, view, projection;
 public:
 	Camera();
 	Camera(vec3 eye, vec3 target, vec3 up);
 	void lookAt();
+	void perspective(float width, float height);
 	vec3 getCameraPos();
 	void setCameraPos(vec3 cameraPos);
 	vec3 getCameraTarget();

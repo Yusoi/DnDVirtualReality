@@ -15,11 +15,11 @@ void Actor::setPos(pair<int, int> pos) {
 	this->pos = pos;
 }
 
-void Actor::draw() {
+void Actor::draw(Shader* shader) {
 	if (inactive_counter < INACTIVE_THRESHOLD) {
 		glPushMatrix();
 			glTranslatef(float(pos.first), 0.0f, float(pos.second));
-			model->drawVAO();
+			model->drawVAO(shader);
 		glPopMatrix();
 	}
 }

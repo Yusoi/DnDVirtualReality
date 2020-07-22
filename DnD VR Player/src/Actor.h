@@ -20,7 +20,7 @@ public:
 	Actor(Model* model, string actor_id, string actor_name);
 	Model* getModel();
 	void setPos(pair<int, int> pos);
-	void draw();
+	void draw(Shader* shader);
 	void incrementInactiveCounter();
 	void resetInactiveCounter();
 };

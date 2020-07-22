@@ -86,6 +86,9 @@ Shader::Shader(string vShader_path, string fShader_path) {
 
 		return;
 	}	
+
+	glDeleteShader(vShader_id);
+	glDeleteShader(fShader_id);
 }
 
 GLuint Shader::getProgramId() {

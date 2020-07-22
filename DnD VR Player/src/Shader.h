@@ -20,5 +20,6 @@ private:
 
 public:
 	Shader(string vShader_path, string fShader_path);
+	
 	GLuint getProgramId();
 };

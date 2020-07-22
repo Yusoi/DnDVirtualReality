@@ -21,6 +21,6 @@ public:
 	Tile(pair<int, int> pos, int code);
 	int getCode();
 	void addModel(Model* model);
-	void draw();
+	void draw(Shader* shader);
 
 };

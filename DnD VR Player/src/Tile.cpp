@@ -14,15 +14,15 @@ void Tile::addModel(Model* model) {
 	models.push_back(model);
 }
 
-void Tile::draw() {
+void Tile::draw(Shader* shader) {
 	glPushMatrix();
 		glTranslatef(float(pos.first)*2, 0.0f, float(pos.second)*2);
 		for (vector<Model*>::iterator it = models.begin(); it != models.end(); it++) {
-			((Model*)*it)->drawVAO();
+			((Model*)*it)->drawVAO(shader);
 		}
 		glTranslatef(0.0f, 2.0f, 0.0f);
 		for (vector<Model*>::iterator it = ++models.begin(); it != models.end(); it++) {
-			((Model*)*it)->drawVAO();
+			((Model*)*it)->drawVAO(shader);
 		}
 	glPopMatrix();
 }
