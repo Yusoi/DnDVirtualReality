@@ -42,6 +42,10 @@ include(${wxWidgets_USE_FILE})
 link_libraries(${wxWidgets_LIBRARIES})
 include_directories(${wxWidgets_INCLUDE_DIRS})
 
+find_package( OpenCV REQUIRED )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+link_libraries(${OPENCV_LIBS})
+
 # Include sub-projects.
 add_subdirectory ("src")
 

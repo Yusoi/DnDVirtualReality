@@ -4,14 +4,15 @@
 #include <string>
 #include <regex>
 #include <sstream>
+#include <bitset>
+#include "opencv2/opencv.hpp"
 #include "tinyxml2.h"
-
 #include "glm/glm.hpp"
 
 using namespace std;
 using namespace glm;
 using namespace tinyxml2;
-
+using namespace cv;
 
 class Board {
 private:
@@ -67,6 +68,7 @@ public:
 	void setActors(vector<Actor> a) { actors = a; }
 	void setModels(vector<Model> m) { models = m; }
 	void setBoard(Board b) { board = b; }
+	void createIMG(string path);
 };
 
 class Exporter {

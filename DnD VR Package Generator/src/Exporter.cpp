@@ -63,6 +63,46 @@ void Game::exportBoard(string path) {
 	board_file.close();
 }
 
+void Game::createIMG(string path) {
+	vec2 size = board.getSize();
+	vector<vector<int>> b = board.getBoard();
+	Mat img = Mat::zeros((size.x+4) * 57, (size.y+4) * 57, CV_8UC1);
+
+	for (int y = 2; y < size.y; y++) {
+		for (int x = 2; x < size.x; x++) {
+			bitset<4> val = b[x][y];
+			if (val[3] == 1)
+				line(img, Point(57 * x, 57 * y), Point(57 * (x + 1), 57 * (y)), 255);
+			if (val[2] == 1)
+				line(img, Point(57 * x, 57 * (y + 1)), Point(57 * (x + 1), 57 * (y + 1)), 255);
+			if (val[1] == 1)
+				line(img, Point(57 * (x + 1), 57 * y), Point(57 * (x + 1), 57 * (y + 1)), 255);
+			if (val[0] == 1)
+				line(img, Point(57 * x, 57 * y), Point(57 * x, 57 * (y + 1)), 255);
+		}
+	}
+
+	vector<vector<Point> > cnt;
+	vector<Vec4i> hier;
+	findContours(img, cnt, hier, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
+
+	int idx = 0;
+	for (; idx >= 0; idx = hier[idx][0]){
+		drawContours(img, cnt, idx, 255, FILLED, 8, hier);
+	}
+
+	Mat nw = imread((path + "/nw.png").c_str(), IMREAD_GRAYSCALE);
+	Mat se = imread((path + "/se.png").c_str(), IMREAD_GRAYSCALE);
+	
+	Mat destRoi = img(Rect((size.x+2)*57, 0, nw.cols, nw.rows));
+	nw.copyTo(destRoi);
+
+	destRoi = img(Rect(0, (size.y+2)*57, se.cols, se.rows));
+	se.copyTo(destRoi);
+
+	imwrite((path + "/" + board.getName() + ".jpg").c_str(), img);
+}
+
 void Game::createXML(string path) {
 	XMLDocument doc;
 	string name = board.getName();
@@ -128,5 +168,6 @@ void Exporter::port(string path) {
 	for (Game game : games) {
 		game.createXML(path);
 		game.exportBoard(path);
+		game.createIMG(path);
 	}
 }
