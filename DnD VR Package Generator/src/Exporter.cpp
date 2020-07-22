@@ -11,7 +11,7 @@ Exporter::Exporter() {
 
 	for (int i = 0; i < 4; i++) {
 		for(int ii = 0; ii < 4; ii++){
-			v[i][ii] = rand() % 9;
+			v[i][ii] = 15;
 		}
 	}
 
@@ -66,19 +66,20 @@ void Game::exportBoard(string path) {
 void Game::createIMG(string path) {
 	vec2 size = board.getSize();
 	vector<vector<int>> b = board.getBoard();
-	Mat img = Mat::zeros((size.x+4) * 57, (size.y+4) * 57, CV_8UC1);
+	Mat img = Mat::zeros((size.y+2) * 57, (size.x+2) * 57, CV_8UC1);
+	bitset<4> val;
 
-	for (int y = 2; y < size.y; y++) {
-		for (int x = 2; x < size.x; x++) {
-			bitset<4> val = b[x][y];
-			if (val[3] == 1)
-				line(img, Point(57 * x, 57 * y), Point(57 * (x + 1), 57 * (y)), 255);
-			if (val[2] == 1)
-				line(img, Point(57 * x, 57 * (y + 1)), Point(57 * (x + 1), 57 * (y + 1)), 255);
-			if (val[1] == 1)
-				line(img, Point(57 * (x + 1), 57 * y), Point(57 * (x + 1), 57 * (y + 1)), 255);
+	for (int y = 0; y < size.y; y++) {
+		for (int x = 0; x < size.x; x++) {
+			val = b[x][y];
 			if (val[0] == 1)
-				line(img, Point(57 * x, 57 * y), Point(57 * x, 57 * (y + 1)), 255);
+				line(img, Point(57 * (x+1), 57 * (y+1)), Point(57 * (x + 2), 57 * (y+1)), 255);
+			if (val[1] == 1)
+				line(img, Point(57 * (x+1), 57 * (y + 2)), Point(57 * (x + 2), 57 * (y + 2)), 255);
+			if (val[2] == 1)
+				line(img, Point(57 * (x + 2), 57 * (y+1)), Point(57 * (x + 2), 57 * (y + 2)), 255);
+			if (val[3] == 1)
+				line(img, Point(57 * (x+1), 57 * (y+1)), Point(57 * (x+1), 57 * (y + 2)), 255);
 		}
 	}
 
@@ -94,10 +95,10 @@ void Game::createIMG(string path) {
 	Mat nw = imread((path + "/nw.png").c_str(), IMREAD_GRAYSCALE);
 	Mat se = imread((path + "/se.png").c_str(), IMREAD_GRAYSCALE);
 	
-	Mat destRoi = img(Rect((size.x+2)*57, 0, nw.cols, nw.rows));
+	Mat destRoi = img(Rect((size.x+1)*57, 0, nw.cols, nw.rows));
 	nw.copyTo(destRoi);
 
-	destRoi = img(Rect(0, (size.y+2)*57, se.cols, se.rows));
+	destRoi = img(Rect(0, (size.y+1)*57, se.cols, se.rows));
 	se.copyTo(destRoi);
 
 	imwrite((path + "/" + board.getName() + ".jpg").c_str(), img);
