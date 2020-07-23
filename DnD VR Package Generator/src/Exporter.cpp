@@ -83,15 +83,6 @@ void Game::createIMG(string path) {
 		}
 	}
 
-	vector<vector<Point> > cnt;
-	vector<Vec4i> hier;
-	findContours(img, cnt, hier, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
-
-	int idx = 0;
-	for (; idx >= 0; idx = hier[idx][0]){
-		drawContours(img, cnt, idx, 255, FILLED, 8, hier);
-	}
-
 	img = ~img;
 
 	Mat ne = imread((path + "/NE.png").c_str(), IMREAD_GRAYSCALE);
@@ -145,7 +136,7 @@ void Game::createXML(string path) {
 		string name = actor.getName();
 		int id = actor.getID();
 
-		XMLElement* xactor = doc.NewElement("model");
+		XMLElement* xactor = doc.NewElement("actor");
 		xactor->SetAttribute("id", to_string(i).c_str());
 		xactor->SetAttribute("name", name.c_str());
 		xactor->SetAttribute("model_id", to_string(id).c_str());
