@@ -10,6 +10,8 @@ ImageInterpreter::ImageInterpreter(pair<int,int> boardsize) {
 	if (!cap.isOpened()) {
 		cerr << "ERROR: Camera Unavailable" << endl;
 	}
+
+	cv::namedWindow("Camera", WINDOW_AUTOSIZE);
 }
 
 Mat ImageInterpreter::retrieveImage() {
@@ -19,6 +21,9 @@ Mat ImageInterpreter::retrieveImage() {
 	if (frame.empty()) {
 		cerr << "ERROR: Blank frame grabbed" << endl;
 	}
+
+	imshow("Camera", frame);
+	waitKey(1);
 
 	return frame;
 }
