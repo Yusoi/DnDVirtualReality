@@ -5,12 +5,12 @@ Exporter::Exporter() {
 
 	// Setup board
 	Board board;
-	board.setSize(vec2(4, 4));
-	vector<vector<int>> v(4, vector<int>(4));
+	board.setSize(vec2(8, 8));
+	vector<vector<int>> v(8, vector<int>(8));
 	srand(time(NULL));
 
-	for (int i = 0; i < 4; i++) {
-		for(int ii = 0; ii < 4; ii++){
+	for (int i = 0; i < 8; i++) {
+		for(int ii = 0; ii < 8; ii++){
 			v[i][ii] = 15;
 		}
 	}
@@ -66,20 +66,20 @@ void Game::exportBoard(string path) {
 void Game::createIMG(string path) {
 	vec2 size = board.getSize();
 	vector<vector<int>> b = board.getBoard();
-	Mat img = Mat::zeros((size.y+2) * 57, (size.x+2) * 57, CV_8UC1);
+	Mat img = Mat::zeros((size.y+2) * 72, (size.x+2) * 72, CV_8UC1);
 	bitset<4> val;
 
 	for (int y = 0; y < size.y; y++) {
 		for (int x = 0; x < size.x; x++) {
 			val = b[x][y];
 			if (val[0] == 1)
-				line(img, Point(57 * (x+1), 57 * (y+1)), Point(57 * (x + 2), 57 * (y+1)), 255);
+				line(img, Point(72 * (x+1), 72 * (y+1)), Point(72 * (x + 2), 72 * (y+1)), 255, 8);
 			if (val[1] == 1)
-				line(img, Point(57 * (x+1), 57 * (y + 2)), Point(57 * (x + 2), 57 * (y + 2)), 255);
+				line(img, Point(72 * (x+1), 72 * (y + 2)), Point(72 * (x + 2), 72 * (y + 2)), 255, 8);
 			if (val[2] == 1)
-				line(img, Point(57 * (x + 2), 57 * (y+1)), Point(57 * (x + 2), 57 * (y + 2)), 255);
+				line(img, Point(72 * (x + 2), 72 * (y+1)), Point(72 * (x + 2), 72 * (y + 2)), 255, 8);
 			if (val[3] == 1)
-				line(img, Point(57 * (x+1), 57 * (y+1)), Point(57 * (x+1), 57 * (y + 2)), 255);
+				line(img, Point(72 * (x+1), 72 * (y+1)), Point(72 * (x+1), 72 * (y + 2)), 255, 8);
 		}
 	}
 
@@ -92,14 +92,16 @@ void Game::createIMG(string path) {
 		drawContours(img, cnt, idx, 255, FILLED, 8, hier);
 	}
 
-	Mat nw = imread((path + "/nw.png").c_str(), IMREAD_GRAYSCALE);
-	Mat se = imread((path + "/se.png").c_str(), IMREAD_GRAYSCALE);
-	
-	Mat destRoi = img(Rect((size.x+1)*57, 0, nw.cols, nw.rows));
-	nw.copyTo(destRoi);
+	img = ~img;
 
-	destRoi = img(Rect(0, (size.y+1)*57, se.cols, se.rows));
-	se.copyTo(destRoi);
+	Mat ne = imread((path + "/NE.png").c_str(), IMREAD_GRAYSCALE);
+	Mat sw = imread((path + "/SW.png").c_str(), IMREAD_GRAYSCALE);
+	
+	Mat destRoi = img(Rect((size.x+1)*72, 0, ne.cols, ne.rows));
+	ne.copyTo(destRoi);
+
+	destRoi = img(Rect(0, (size.y+1)*72, sw.cols, sw.rows));
+	sw.copyTo(destRoi);
 
 	imwrite((path + "/" + board.getName() + ".jpg").c_str(), img);
 }
