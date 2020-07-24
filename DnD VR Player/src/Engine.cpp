@@ -214,16 +214,16 @@ void Engine::addCustomLight(CustomLight* customLight) {
 	this->customLights.push_back(customLight);
 }
 
-void Engine::setPackageFile(string packagefile_path) {
-	this->packagefile_path = packagefile_path;
+void Engine::setPackageFile(string project_path) {
+	this->project_path = project_path;
 }
 
 void Engine::loadModels() {
-	Model* floor = new Model("Floor", "C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/floor.vbo", "C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/Textures/Floor.jpg");
-	Model* north_wall = new Model("North Wall", "C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/north_wall.vbo", "C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/Textures/Wall.png");
-	Model* south_wall = new Model("South Wall", "C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/south_wall.vbo", "C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/Textures/Wall.png");
-	Model* east_wall = new Model("East Wall", "C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/east_wall.vbo", "C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/Textures/Wall.png");
-	Model* west_wall = new Model("West Wall", "C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/west_wall.vbo", "C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/Textures/Wall.png");
+	Model* floor = new Model("Floor", (project_path+"/models/floor.vbo").c_str(), (project_path+"/models/Textures/Floor.jpg").c_str());
+	Model* north_wall = new Model("North Wall", (project_path + "/models/north_wall.vbo").c_str(), (project_path + "/models/Textures/Wall.png").c_str());
+	Model* south_wall = new Model("South Wall", (project_path + "/models/south_wall.vbo").c_str(), (project_path + "/models/Textures/Wall.png").c_str());
+	Model* east_wall = new Model("East Wall", (project_path + "/models/east_wall.vbo").c_str(), (project_path + "/models/Textures/Wall.png").c_str());
+	Model* west_wall = new Model("West Wall", (project_path + "/models/west_wall.vbo").c_str(), (project_path + "/models/Textures/Wall.png").c_str());
 
 	tile_models.insert({ "Floor",floor });
 	tile_models.insert({ "North Wall",north_wall });
@@ -231,8 +231,12 @@ void Engine::loadModels() {
 	tile_models.insert({ "East Wall",east_wall });
 	tile_models.insert({ "West Wall",west_wall });
 
-	PackageReader* pr = new PackageReader(packagefile_path);
+	cout << "Pre package reader: " << project_path << endl;
+
+	PackageReader* pr = new PackageReader(project_path);
 	boardsize = pr->loadPackage(&models, &actors, &tiles);
+
+	cout << "Post package reader: " << project_path << endl;
 
 	//4 bit code in which each bit represents the positions of the walls on the tile
 	// 0000 - Tile without walls
@@ -251,8 +255,8 @@ void Engine::loadModels() {
 }
 
 void Engine::loadShaders() {
-	shader = new Shader("C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/Shaders/shader.vert",
-						"C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/Shaders/shader.frag");
+	shader = new Shader(project_path + "/shaders/shader.vert",
+						project_path + "/shaders/shader.frag");
 
 	//glUseProgram(shader->getProgramId());
 }
@@ -260,7 +264,7 @@ void Engine::loadShaders() {
 static void runQRCodeDetection(map<string,Actor*>* actors, pair<int,int> boardsize) {
 	ImageInterpreter ii(boardsize);
 	for (;;) {
-		this_thread::sleep_for(chrono::seconds(1));
+		//this_thread::sleep_for(chrono::seconds(1));
 		ii.updateActors(actors);
 	}
 }

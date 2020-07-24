@@ -40,6 +40,13 @@ endif(NOT DevIL_FOUND)
 link_libraries("D:/opencv/build/x64/vc15/lib/opencv_world440d.lib")
 include_directories("D:/opencv/build/include")
 
+#find_package( OpenCV REQUIRED )
+#link_libraries(${OPENCV_LIBS})
+#include_directories( ${OpenCV_INCLUDE_DIRS} )
+#if(NOT OpenCV_FOUND)
+#  message(ERROR " OpenCV not found!")
+#endif(NOT OpenCV_FOUND)
+
 # Include sub-projects.
 add_subdirectory ("src")
 

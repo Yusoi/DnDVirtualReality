@@ -14,7 +14,7 @@ using namespace tinyxml2;
 
 class PackageReader {
 private:
-	string packagefile_path;
+	string project_path;
 	pair<int, int> boardsize;
 public:
 	PackageReader(string packagefile_path);

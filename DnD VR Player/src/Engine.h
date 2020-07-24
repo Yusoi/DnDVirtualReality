@@ -30,7 +30,7 @@ class Engine {
 		Camera* camera;
 		Shader* shader;
 
-		string packagefile_path;
+		string project_path;
 
 		map<string,Model*> models;
 		map<string,Actor*> actors;

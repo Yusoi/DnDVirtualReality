@@ -49,6 +49,7 @@ void ImageInterpreter::updateActors(map<string,Actor*>* actors) {
 	map<string, pair<int, int>> actor_centers;
 
 	for (vector<string>::iterator it = decodedInfo.begin(); it != decodedInfo.end(); it++) {
+		cout << (*it) << endl;
 		if (!(*it).compare("SW")) {
 			//Get northeastern corner
 			sw_bound = corners.at(count * 4 + 1);

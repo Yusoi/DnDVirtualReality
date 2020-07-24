@@ -2,8 +2,8 @@
 
 regex t("[a-zA-Z0-9]*:");
 
-PackageReader::PackageReader(string packagefile_path) {
-	this->packagefile_path = packagefile_path;
+PackageReader::PackageReader(string project_path) {
+	this->project_path = project_path;
 	this->boardsize = { 0,0 };
 }
 
@@ -41,8 +41,8 @@ vector<Tile*> PackageReader::loadBoardFile(string boardfile_path) {
 //TODO: Read XML
 pair<int,int> PackageReader::loadPackage(map<string,Model*>* models, map<string, Actor*>* actors, vector<Tile*>* tiles) {
 	XMLDocument doc;
-	doc.LoadFile(packagefile_path.c_str());
-
+	string proj_file_path = project_path + "/proj.xml";
+	doc.LoadFile(proj_file_path.c_str());
 	if (doc.ErrorID()) {
 		cout << "Error loading package file!\n" << endl;
 	}
@@ -59,10 +59,8 @@ pair<int,int> PackageReader::loadPackage(map<string,Model*>* models, map<string,
 		const char* texture_path = modelElement->Attribute("texture");
 
 		char* m_id = strdup(model_id);
-		char* m_path = strdup(model_path);
-		char* tex_path = strdup(texture_path);
 
-		Model* cur_model = new Model(m_id, m_path, tex_path);
+		Model* cur_model = new Model(m_id, (project_path+model_path).c_str(), (project_path+texture_path).c_str());
 
 		models->insert({ model_id, cur_model });
 
@@ -88,7 +86,7 @@ pair<int,int> PackageReader::loadPackage(map<string,Model*>* models, map<string,
 
 	//Fill Tile Vector
 	const char* boardFilePath = boardFileElement->Attribute("path");
-	*tiles = loadBoardFile(boardFilePath);
+	*tiles = loadBoardFile(project_path+boardFilePath);
 
 	return boardsize;
 }

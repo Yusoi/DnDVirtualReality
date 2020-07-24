@@ -8,16 +8,18 @@
 regex value("[0-9\\.e\\-]+");
 regex size_buffer("\\(([0-9]+),([0-9]+)\\)");
 
-Model::Model(char *name, char *obj_path, char *tex_path) {
+Model::Model(char *name, const char *obj_path, const char *tex_path) {
 	this->name = name;
 	this->obj_path = obj_path;
 	this->tex_path = tex_path;
+
+	cout << "Object path: " << obj_path << " Texture path: " << tex_path << endl;
 
 	load_texture(tex_path);
 	load_model(obj_path);
 }
 
-void Model::load_model(char* obj_path) {
+void Model::load_model(const char* obj_path) {
 	ifstream input_file;
 	string line;
 
@@ -132,13 +134,15 @@ void Model::prepare_vao() {
 
 }
 
-void Model::load_texture(char* tex_path) {
+void Model::load_texture(const char* tex_path) {
 	unsigned int tex, tex_w, tex_h;
 	unsigned char* texData;
 
+	char* tex_path_char = strdup(tex_path);
+
 	ilGenImages(1,&tex);
 	ilBindImage(tex);
-	if (!ilLoadImage((ILstring)tex_path)) {
+	if (!ilLoadImage((ILstring)tex_path_char)) {
 		cout << ilGetError() << endl;
 		exit(1);
 	}

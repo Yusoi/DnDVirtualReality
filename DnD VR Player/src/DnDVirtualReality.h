@@ -4,6 +4,8 @@
 #pragma once
 
 #include <iostream>
-
+#include <ShlObj_core.h>
+#include <shlobj.h>
+#include <windows.h>
 // TODO: Reference additional headers your program requires here.
 #include "Engine.h"

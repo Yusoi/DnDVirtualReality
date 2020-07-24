@@ -36,9 +36,9 @@ class Model {
 		int* indexes_array;
 
 	public:
-		Model(char *name, char *obj_path, char *tex_path);
-		void load_model(char* obj_path);
-		void load_texture(char* tex_path);
+		Model(char *name, const char *obj_path, const char *tex_path);
+		void load_model(const char* obj_path);
+		void load_texture(const char* tex_path);
 		void prepare_vao();
 		void drawVAO(Shader* shader);
 		void draw();

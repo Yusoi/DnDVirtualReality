@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<board name="Example Board" theme="Gothic">
+  <models>
+    <model id="1"
+           model="/models/1.vbo"
+           texture="/models/textures/1.png" />
+  </models>
+
+  <actors>
+    <actor id="1"
+           name="Knight"
+           model_id="1"/>
+  </actors>
+  
+  <boardFile path="/proj.brd" />
+</board>
