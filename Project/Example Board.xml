@@ -1,0 +1,9 @@
+<board name="Example Board" theme="Gothic">
+    <models>
+        <model id="0" model="Example MPath" texture="Example TPath"/>
+    </models>
+    <actors>
+        <actor id="0" name="Example Name" model_id="1"/>
+    </actors>
+    <boardFile path="C:/Users/nreis/Desktop/DnDVirtualReality/Project/Example Board.brd"/>
+</board>

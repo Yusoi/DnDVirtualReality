@@ -5,10 +5,13 @@
 #include <regex>
 #include <sstream>
 #include <bitset>
+
+#include "QrCode.hpp"
 #include "opencv2/opencv.hpp"
 #include "tinyxml2.h"
 #include "glm/glm.hpp"
 
+using namespace qrcodegen;
 using namespace std;
 using namespace glm;
 using namespace tinyxml2;
@@ -69,6 +72,8 @@ public:
 	void setModels(vector<Model> m) { models = m; }
 	void setBoard(Board b) { board = b; }
 	void createIMG(string path);
+	void createQR(string path);
+	void drawQR(string id, string path, QrCode qr);
 };
 
 class Exporter {

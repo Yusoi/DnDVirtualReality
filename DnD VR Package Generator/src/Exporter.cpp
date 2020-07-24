@@ -76,82 +76,82 @@ void Game::createIMG(string path) {
 			val = b[x][y];
 			switch (val) {
 				case 0:
-					cell = imread((path + "/Tiles/0000.png").c_str(), IMREAD_GRAYSCALE);
+					cell = imread((path + "/tiles/0000.png").c_str(), IMREAD_GRAYSCALE);
 					destRoi = img(Rect(57 * (x + 1), 57 * (y + 1), cell.cols, cell.rows));
 					cell.copyTo(destRoi);
 					break;
 				case 1:
-					cell = imread((path + "/Tiles/0001.png").c_str(), IMREAD_GRAYSCALE);
+					cell = imread((path + "/tiles/0001.png").c_str(), IMREAD_GRAYSCALE);
 					destRoi = img(Rect(57 * (x + 1), 57 * (y + 1), cell.cols, cell.rows));
 					cell.copyTo(destRoi);
 					break;
 				case 2:
-					cell = imread((path + "/Tiles/0010.png").c_str(), IMREAD_GRAYSCALE);
+					cell = imread((path + "/tiles/0010.png").c_str(), IMREAD_GRAYSCALE);
 					destRoi = img(Rect(57 * (x + 1), 57 * (y + 1), cell.cols, cell.rows));
 					cell.copyTo(destRoi);
 					break;
 				case 3:
-					cell = imread((path + "/Tiles/0011.png").c_str(), IMREAD_GRAYSCALE);
+					cell = imread((path + "/tiles/0011.png").c_str(), IMREAD_GRAYSCALE);
 					destRoi = img(Rect(57 * (x + 1), 57 * (y + 1), cell.cols, cell.rows));
 					cell.copyTo(destRoi);
 					break;
 				case 4:
-					cell = imread((path + "/Tiles/0100.png").c_str(), IMREAD_GRAYSCALE);
+					cell = imread((path + "/tiles/0100.png").c_str(), IMREAD_GRAYSCALE);
 					destRoi = img(Rect(57 * (x + 1), 57 * (y + 1), cell.cols, cell.rows));
 					cell.copyTo(destRoi);
 					break;
 				case 5:
-					cell = imread((path + "/Tiles/0101.png").c_str(), IMREAD_GRAYSCALE);
+					cell = imread((path + "/tiles/0101.png").c_str(), IMREAD_GRAYSCALE);
 					destRoi = img(Rect(57 * (x + 1), 57 * (y + 1), cell.cols, cell.rows));
 					cell.copyTo(destRoi);
 					break;
 				case 6:
-					cell = imread((path + "/Tiles/0110.png").c_str(), IMREAD_GRAYSCALE);
+					cell = imread((path + "/tiles/0110.png").c_str(), IMREAD_GRAYSCALE);
 					destRoi = img(Rect(57 * (x + 1), 57 * (y + 1), cell.cols, cell.rows));
 					cell.copyTo(destRoi);
 					break;
 				case 7:
-					cell = imread((path + "/Tiles/0111.png").c_str(), IMREAD_GRAYSCALE);
+					cell = imread((path + "/tiles/0111.png").c_str(), IMREAD_GRAYSCALE);
 					destRoi = img(Rect(57 * (x + 1), 57 * (y + 1), cell.cols, cell.rows));
 					cell.copyTo(destRoi);
 					break;
 				case 8:
-					cell = imread((path + "/Tiles/1000.png").c_str(), IMREAD_GRAYSCALE);
+					cell = imread((path + "/tiles/1000.png").c_str(), IMREAD_GRAYSCALE);
 					destRoi = img(Rect(57 * (x + 1), 57 * (y + 1), cell.cols, cell.rows));
 					cell.copyTo(destRoi);
 					break;
 				case 9:
-					cell = imread((path + "/Tiles/1001.png").c_str(), IMREAD_GRAYSCALE);
+					cell = imread((path + "/tiles/1001.png").c_str(), IMREAD_GRAYSCALE);
 					destRoi = img(Rect(57 * (x + 1), 57 * (y + 1), cell.cols, cell.rows));
 					cell.copyTo(destRoi);
 					break;
 				case 10:
-					cell = imread((path + "/Tiles/1010.png").c_str(), IMREAD_GRAYSCALE);
+					cell = imread((path + "/tiles/1010.png").c_str(), IMREAD_GRAYSCALE);
 					destRoi = img(Rect(57 * (x + 1), 57 * (y + 1), cell.cols, cell.rows));
 					cell.copyTo(destRoi);
 					break;
 				case 11:
-					cell = imread((path + "/Tiles/1011.png").c_str(), IMREAD_GRAYSCALE);
+					cell = imread((path + "/tiles/1011.png").c_str(), IMREAD_GRAYSCALE);
 					destRoi = img(Rect(57 * (x + 1), 57 * (y + 1), cell.cols, cell.rows));
 					cell.copyTo(destRoi);
 					break;
 				case 12:
-					cell = imread((path + "/Tiles/1100.png").c_str(), IMREAD_GRAYSCALE);
+					cell = imread((path + "/tiles/1100.png").c_str(), IMREAD_GRAYSCALE);
 					destRoi = img(Rect(57 * (x + 1), 57 * (y + 1), cell.cols, cell.rows));
 					cell.copyTo(destRoi);
 					break;
 				case 13:
-					cell = imread((path + "/Tiles/1101.png").c_str(), IMREAD_GRAYSCALE);
+					cell = imread((path + "/tiles/1101.png").c_str(), IMREAD_GRAYSCALE);
 					destRoi = img(Rect(57 * (x + 1), 57 * (y + 1), cell.cols, cell.rows));
 					cell.copyTo(destRoi);
 					break;
 				case 14:
-					cell = imread((path + "/Tiles/1110.png").c_str(), IMREAD_GRAYSCALE);
+					cell = imread((path + "/tiles/1110.png").c_str(), IMREAD_GRAYSCALE);
 					destRoi = img(Rect(57 * (x + 1), 57 * (y + 1), cell.cols, cell.rows));
 					cell.copyTo(destRoi);
 					break;
 				case 15:
-					cell = imread((path + "/Tiles/1111.png").c_str(), IMREAD_GRAYSCALE);
+					cell = imread((path + "/tiles/1111.png").c_str(), IMREAD_GRAYSCALE);
 					destRoi = img(Rect(57 * (x + 1), 57 * (y + 1), cell.cols, cell.rows));
 					cell.copyTo(destRoi);
 					break;
@@ -232,10 +232,33 @@ void Game::createXML(string path) {
 	doc.SaveFile((path + "/" + board.getName() + ".xml").c_str());
 }
 
+void Game::createQR(string path) {
+	for (Actor actor : actors) {
+		string id = to_string(actor.getID());
+		QrCode qr =QrCode::encodeText(id.c_str(), QrCode::Ecc::MEDIUM);
+		drawQR(id, path, qr);
+	}
+}
+
+void Game::drawQR(string id, string path, QrCode qr) {
+	int size = qr.getSize();
+	Mat img = Mat::ones(size, size, CV_8UC1) * 255;
+	for (int x = 0; x < size; x++) {
+		for (int y = 0; y < size; y++) {
+			const int color = qr.getModule(x, y);  // 0 for white, 1 for black
+			if (0 != color) {
+				img.at<uint8>(x, y, 1) = 0;
+			}
+		}
+	}
+	imwrite((path + "/prints/" + id + ".png").c_str(), img);
+}
+
 void Exporter::port(string path) {
 	for (Game game : games) {
 		game.createXML(path);
 		game.exportBoard(path);
 		game.createIMG(path);
+		game.createQR(path);
 	}
 }

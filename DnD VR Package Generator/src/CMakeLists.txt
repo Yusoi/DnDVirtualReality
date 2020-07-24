@@ -14,7 +14,7 @@ add_executable(DnDVirtualReality "ObjToVbo.cpp" "ObjToVbo.h"
 								  "app.cpp" "app.h"
 								  "Exporter.cpp" "Exporter.h"
 								  "tinyxml2.cpp" "tinyxml2.h"
-								  "tinyxml2.cpp" "tinyxml2.h"
+								  "QrCode.cpp" "QrCode.hpp"
 								  "Face.cpp" "Face.h" "DnDVRPackageGenerator.cpp" "DnDVRPackageGenerator.h")
 
 TARGET_LINK_LIBRARIES (DnDVirtualReality ${OpenCV_LIBS})

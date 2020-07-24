@@ -12,7 +12,7 @@ int main(int argc, char* argv[]) {
 	//exporter.load_mesh();
 	//exporter.export_vbo_file("C:/Users/Posqg/source/repos/DnDVirtualReality/DnD VR Player/res/models/back_wall.vbo");
 	
-	gameex.port("C:/Users/nreis/Desktop/DnDVirtualReality/DnD VR Package Generator/out");
+	gameex.port("C:/Users/nreis/Desktop/DnDVirtualReality/Project");
 
 	return 0;
 }
