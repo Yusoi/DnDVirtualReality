@@ -22,8 +22,8 @@ Mat ImageInterpreter::retrieveImage() {
 		cerr << "ERROR: Blank frame grabbed" << endl;
 	}
 
-	imshow("Camera", frame);
-	waitKey(1);
+	//imshow("Camera", frame);
+	//waitKey(1);
 
 	return frame;
 }
@@ -31,10 +31,85 @@ Mat ImageInterpreter::retrieveImage() {
 void ImageInterpreter::qrCodeDetector(vector<string> *decodedInfo, vector<Point> *corners) {
 	QRCodeDetector det;
 
-	det.detectAndDecodeMulti(retrieveImage(), *decodedInfo, *corners);
+	Mat img = retrieveImage();
+	Mat bw_img, th_img;
+	cvtColor(img, bw_img, COLOR_BGR2GRAY);
+	threshold(bw_img, th_img, 100, 255, 0);
+
+	imshow("Camera", th_img);
+	waitKey(1);
+
+	det.detectAndDecodeMulti(th_img, *decodedInfo, *corners);
 }
 
+/*
+void ImageInterpreter::qrCodeDetector2(vector<DecodedObject> *decoded_objects) {
+	zbar::ImageScanner scanner;
+
+	scanner.set_config(zbar::ZBAR_NONE, zbar::ZBAR_CFG_ENABLE, 1);
+
+	// Convert image to grayscale
+	Mat imGray;
+	Mat im = retrieveImage();
+	cvtColor(im, imGray, COLOR_BGR2GRAY);
+
+	// Wrap image data in a zbar image
+	zbar::Image image(im.cols, im.rows, "Y800", (uchar*)imGray.data, im.cols * im.rows);
+
+	// Scan the image for barcodes and QRCodes
+	int n = scanner.scan(image);
+
+	// Print results
+	for (zbar::Image::SymbolIterator symbol = image.symbol_begin(); symbol != image.symbol_end(); ++symbol)
+	{
+		DecodedObject obj;
+
+		obj.type = symbol->get_type_name();
+		obj.data = symbol->get_data();
+
+		// Print type and data
+		cout << "Type : " << obj.type << endl;
+		cout << "Data : " << obj.data << endl << endl;
+
+		// Obtain location
+		for (int i = 0; i < symbol->get_location_size(); i++)
+		{
+			obj.location.push_back(Point(symbol->get_location_x(i), symbol->get_location_y(i)));
+		}
+
+		decoded_objects->push_back(obj);
+	}
+}
+*/
+
 void ImageInterpreter::updateActors(map<string,Actor*>* actors) {
+	
+	vector<DecodedObject> decoded_objects;
+
+	/*
+	qrCodeDetector2(&decoded_objects);
+
+	for (int i = 0; i < decoded_objects.size(); i++) {
+		vector<Point> points = decoded_objects[i].location;
+		vector<Point> hull;
+
+		if (points.size() > 4) {
+			convexHull(points, hull);
+		}
+		else {
+			hull = points;
+		}
+
+		int n = hull.size();
+
+		for (int j = 0; j < n; j++) {
+			cout << "String: " << decoded_objects[i].data << endl;
+			cout << "Hull: " << hull[0] << " " << hull[1] << " " << hull[2] << " " << hull[3] << endl;
+		}
+	}
+	*/
+
+	
 	vector<string> decodedInfo;
 	vector<Point> corners;
 
@@ -68,6 +143,7 @@ void ImageInterpreter::updateActors(map<string,Actor*>* actors) {
 		}
 		count++;
 	}
+	
 
 	int board_x = ne_bound.x - sw_bound.x;
 	int board_y = sw_bound.y = ne_bound.y;
